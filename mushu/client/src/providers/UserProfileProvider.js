@@ -2,7 +2,6 @@ import React, { useState, useEffect, createContext } from "react";
 import { Spinner } from "reactstrap";
 import firebase from "firebase/app";
 import "firebase/auth";
-import { useHistory } from "react-router-dom";
 
 export const UserProfileContext = createContext();
 
@@ -19,6 +18,7 @@ export function UserProfileProvider(props) {
   }, []);
 
   const login = (email, pw) => {
+    debugger
     return firebase.auth().signInWithEmailAndPassword(email, pw)
       .then((signInResponse) => { 
         // debugger
