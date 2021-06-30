@@ -35,23 +35,23 @@ export default function Header() {
             {isLoggedIn &&
               <>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/" onClick={toggle}>Home</NavLink>
+                  <NavLink tag={RRNavLink} to="/accounts" onClick={toggle}>Accounts</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/post" onClick={toggle}>Posts</NavLink>
+                  <NavLink tag={RRNavLink} to="/transactions" onClick={toggle}>Transactions</NavLink>
+                </NavItem>
+                {/* <NavItem>
+                  <NavLink tag={RRNavLink} to="/portfolio" onClick={toggle}>Portfolio</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/myposts" onClick={toggle}>My Posts</NavLink>
+                  <NavLink tag={RRNavLink} to="/spending" onClick={toggle}>Spending</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/post/add" onClick={toggle}>New Post</NavLink>
+                  <NavLink tag={RRNavLink} to="/budgets" onClick={toggle}>Budgets</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/tags" onClick={toggle}>Tag Management</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/categories" onClick={toggle}>Category Management</NavLink>
-                </NavItem>
+                  <NavLink tag={RRNavLink} to="/markets" onClick={toggle}>Markets</NavLink>
+                </NavItem> */}
                 
               </>
             }
@@ -62,7 +62,7 @@ export default function Header() {
               <>
                 <NavItem>
                   <a aria-current="page" className="nav-link"
-                    style={{ cursor: "pointer" }} onClick={logout}>Logout</a>
+                    style={{ cursor: "pointer" }} onClick={logout} href=" ">Logout</a>
                 </NavItem>
               </>
             }

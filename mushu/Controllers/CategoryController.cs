@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using mushu.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,17 @@ namespace mushu.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
+        private readonly ICategoryRepository _categoryRepository;
+        public CategoryController(ICategoryRepository categoryRepository)
+        {
+            _categoryRepository = categoryRepository;
+        }
+
         // GET: api/<CategoryController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<Category> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _categoryRepository.GetAllCategories();
         }
 
         // GET api/<CategoryController>/5
