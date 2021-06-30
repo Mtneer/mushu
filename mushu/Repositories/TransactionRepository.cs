@@ -25,7 +25,8 @@ namespace mushu.Repositories
                         SELECT t.Id, t.TransactionDateTime, t.Title, t.Amount, t.CategoryId,
                                c.Name AS CategoryName
                           FROM [Transaction] t
-                     LEFT JOIN Category c ON t.CategoryId = c.Id";
+                     LEFT JOIN Category c ON t.CategoryId = c.Id
+                      ORDER BY t.TransactionDateTime DESC";
 
                     var reader = cmd.ExecuteReader();
 

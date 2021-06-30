@@ -4,6 +4,7 @@ import { TransactionContext } from "../../providers/TransactionProvider";
 
 export const TransactionList = () => {
   const { Transactions, getAllTransactions } = useContext(TransactionContext);
+  const columns = ["Transaction Date", "Retailer", "Amount", "Category"]
     // debugger
   useEffect(() => {
     getAllTransactions();
@@ -13,17 +14,27 @@ export const TransactionList = () => {
     <div className="container">
       <div className="row justify-content-center">
         <div className="cards-column">
-          {Transactions.map((t) => {
-              debugger
-              const dateTime = Date(t.transactionDateTime);
-              debugger
-              return (
-              <div key={t.id}>
-                <p>{dateTime.toLocaleString('en-US')}</p>
-                <p>{t.title}</p>
-                <p>${t.amount}</p>
-              </div>
-            )})}
+          <table>
+            <thead>
+              <tr>
+                {columns.map((col, index) => (
+                  <th key={index}>{col}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {Transactions.map((t) => {
+                  const dateTime = Date(t.transactionDateTime);
+                  return (
+                  <tr key={t.id}>
+                    <td>{dateTime.toLocaleString('en-US')}</td>
+                    <td>{t.title}</td>
+                    <td>${t.amount}</td>
+                    <td>{t.category?.name}</td>
+                  </tr>
+                )})}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

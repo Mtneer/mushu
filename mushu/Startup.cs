@@ -25,6 +25,7 @@ namespace mushu
             services.AddControllers();
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<ITransactionRepository, TransactionRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";
