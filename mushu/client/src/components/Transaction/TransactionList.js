@@ -24,10 +24,10 @@ export const TransactionList = () => {
             </thead>
             <tbody>
               {Transactions.map((t) => {
-                  const dateTime = Date(t.transactionDateTime);
+                  
                   return (
                   <tr key={t.id}>
-                    <td>{dateTime.toLocaleString('en-US')}</td>
+                    <td>{t.transactionDateTime.split("T",1)}</td>
                     <td>{t.title}</td>
                     <td>${t.amount}</td>
                     <td>{t.category?.name}</td>
