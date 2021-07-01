@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using mushu.Models;
+using mushu.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,18 @@ namespace mushu.Controllers
     [ApiController]
     public class TransactionController : ControllerBase
     {
+
+        private readonly ITransactionRepository _transactionRepository;
+        public TransactionController(ITransactionRepository transactionRepository)
+        {
+            _transactionRepository = transactionRepository;
+        }
+
         // GET: api/<TransactionController>
         [HttpGet]
-        public IActionResult Get()
+        public List<Transaction> Get()
         {
-            return NoContent();
+            return _transactionRepository.GetAllTransactions();
         }
 
         // GET api/<TransactionController>/5

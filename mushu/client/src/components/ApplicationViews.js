@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 // import { PostProvider } from "../providers/PostProvider";
-// import { PostList } from "./PostList";
+import { TransactionList } from "./Transaction/TransactionList";
 // import { PostForm } from "./PostForm";
 import Login from "./Login";
 // import Register from "./Register";
@@ -28,12 +28,12 @@ export default function ApplicationViews() {
           {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
         </Route>
         
-        {/*-----------------POST ROUTES--------------------*/}
-        {/* <Route exact path="/post">
-          {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
+        {/*-----------------TRANSACTION ROUTES--------------------*/}
+        <Route exact path="/transactions">
+          {isLoggedIn ? <TransactionList /> : <Redirect to="/login" />}
         </Route>
         
-        <Route exact path="/post/detail/:postId(\d+)">
+        {/* <Route exact path="/post/detail/:postId(\d+)">
           {isLoggedIn ? <PostDetails/> : <Redirect to="/login" />}
         </Route>
         
