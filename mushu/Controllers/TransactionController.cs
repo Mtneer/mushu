@@ -30,9 +30,9 @@ namespace mushu.Controllers
 
         // GET api/<TransactionController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Transaction Get(int id)
         {
-            return "value";
+            return _transactionRepository.GetTransactionById(id);
         }
 
         // POST api/<TransactionController>
@@ -42,9 +42,10 @@ namespace mushu.Controllers
         }
 
         // PUT api/<TransactionController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put(Transaction transaction)
         {
+            _transactionRepository.UpdateTransaction(transaction);
         }
 
         // DELETE api/<TransactionController>/5

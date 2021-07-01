@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom"
 import { TransactionContext } from "../../providers/TransactionProvider";
 // import { Post } from "./Post";
 
@@ -10,8 +11,10 @@ export const TransactionList = () => {
     getAllTransactions();
   }, []);
 
-  const onClickEdit = () => {
-    
+  const history = useHistory();
+
+  const onClickEdit = (e) => {
+    history.push(`/transaction/edit/${e.target.id}`);
   }
 
   return (
@@ -35,7 +38,7 @@ export const TransactionList = () => {
                     <td>{t.title}</td>
                     <td>${t.amount}</td>
                     <td>{t.category?.name}</td>
-                    <td><button onclick={onClickEdit}>Edit</button></td>
+                    <td><button id={t.id} onClick={onClickEdit}>Edit</button></td>
                   </tr>
                 )})}
             </tbody>

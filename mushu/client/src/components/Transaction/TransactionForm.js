@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react"
 import { TransactionContext } from "../../providers/TransactionProvider";
 import { CategoryContext } from "../../providers/CategoryProvider";
 import { useHistory, useParams } from 'react-router-dom';
-import "./Post.css";
+// import "./Post.css";
 
-export const PostForm = () => {
+export const TransactionForm = () => {
     const { getTransactionById, editTransaction } = useContext(TransactionContext);
     const { categories, getAllCategories } = useContext(CategoryContext);
     const [transactionToEdit, setTransactionToEdit] = useState({});
@@ -19,16 +19,11 @@ export const PostForm = () => {
     useEffect(() => {
         getAllCategories()
         .then(() => {
-            if (transactionId) {
-              getTransactionById(transactionId)
-              .then(transaction => {
-                setTransactionFormInput(transaction)
-                setIsLoading(false)
-              })
-            } else {
-              setIsLoading(false)
-            }
-          })
+            getTransactionById(transactionId)})
+        .then(transaction => {
+            setTransactionToEdit(transaction)
+            setIsLoading(false)
+        })
     }, []);
 
     //when a field changes, update state. The return will re-render and display based on the values in state
@@ -73,11 +68,11 @@ export const PostForm = () => {
     return (
         <form className="transactionForm">
             <h2 className="transactionForm__title">Edit Transaction Category</h2>
-            <h4 className="transactionForm__retailer">{transactionToEdit.title}</h4>
+            <h4 className="transactionForm__retailer">{transactionToEdit?.title}</h4>
             <fieldset className="col-6">
                 <label htmlFor="category">Category:</label>
                 <select
-                    value={transactionToEdit.categoryId}
+                    value={transactionToEdit?.categoryId}
                     name="category"
                     id="categoryId"
                     onChange={handleControlledInputChange}
@@ -98,7 +93,7 @@ export const PostForm = () => {
                     onClick={handleClickSaveTransaction} disable={isLoading.toString()}>
                     Save Transaction
                 </button>
-                <button className="button btn btn-sm btn-secondary" onClick={() => {history.push("/transaction")}}>Cancel</button>
+                <button className="button btn btn-sm btn-secondary" onClick={() => {history.push("/transactions")}}>Cancel</button>
             </div>
         </form>
     )
