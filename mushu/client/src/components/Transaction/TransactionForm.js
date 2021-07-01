@@ -19,10 +19,11 @@ export const TransactionForm = () => {
     useEffect(() => {
         getAllCategories()
         .then(() => {
-            getTransactionById(transactionId)})
-        .then(transaction => {
-            setTransactionToEdit(transaction)
-            setIsLoading(false)
+            getTransactionById(transactionId)
+            .then(transaction => {
+                setTransactionToEdit(transaction)
+                setIsLoading(false)
+            })
         })
     }, []);
 
