@@ -11,7 +11,7 @@ export const CategoryProvider = (props) => {
   
   const getAllCategories = () => {
     return getToken().then((token) =>
-        fetch(`${apiUrl}/GetAll`, {
+        fetch(apiUrl, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`

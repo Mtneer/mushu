@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 // import { PostProvider } from "../providers/PostProvider";
 import { TransactionList } from "./Transaction/TransactionList";
-// import { PostForm } from "./PostForm";
+import { TransactionForm } from "./Transaction/TransactionForm";
 import Login from "./Login";
 // import Register from "./Register";
 import Hello from "./Hello";
@@ -35,17 +35,17 @@ export default function ApplicationViews() {
         
         {/* <Route exact path="/post/detail/:postId(\d+)">
           {isLoggedIn ? <PostDetails/> : <Redirect to="/login" />}
-        </Route>
+        </Route> */}
         
-        <Route exact path="/post/add">
+        {/* <Route exact path="/post/add">
           {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
-        </Route>
+        </Route> */}
         
-        <Route exact path="/post/edit/:postId(\d+)">
-          {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
+        <Route exact path="/transaction/edit/:transactionId(\d+)">
+          {isLoggedIn ? <TransactionForm /> : <Redirect to="/login" />}
         </Route>
 
-        <Route exact path="/post/delete/:postId(\d+)">
+        {/* <Route exact path="/post/delete/:postId(\d+)">
           {isLoggedIn ? <ConfirmDelete /> : <Redirect to="/login" />}
         </Route> */}
         

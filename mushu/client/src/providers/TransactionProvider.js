@@ -10,7 +10,6 @@ export const TransactionProvider = (props) => {
   const [ Transactions, setTransactions ] = useState([]);
 
   const getAllTransactions = () => {
-    //   debugger
     return getToken().then((token) =>
         fetch(apiUrl, {
             method: "GET",
@@ -21,7 +20,17 @@ export const TransactionProvider = (props) => {
       .then(resp => resp.json())
       .then(setTransactions);
   };
-
+  
+  const getTransactionById = (transactionId) => {
+    return getToken().then((token) =>
+        fetch(`${apiUrl}/${transactionId}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }))
+        .then(resp => resp.json())    
+  }
 //   const addPost = (post) => {
 //     // debugger
 //     return getToken().then((token) =>
@@ -36,32 +45,20 @@ export const TransactionProvider = (props) => {
 //           .then(resp => resp.json())
 //   };
 
-//   const getPostById = (postId) => {
-//     return getToken().then((token) =>
-//         fetch(`${apiUrl}/${postId}`, {
-//             method: "GET",
-//             headers: {
-//                 Authorization: `Bearer ${token}`
-//             }
-//         }))
-//         .then(resp => resp.json())    
-//   }
 
   // Provider method to edit a post by sending a PUT request based on a Post Object
   // to the Web API with a firebase Token for authentication.
-//   const editTransaction = (transaction) => {
-//     // debugger
-//     return getToken().then((token) => {
-//         // debugger
-//         fetch(apiUrl, {
-//             method: "PUT",
-//             headers: {
-//                 Authorization: `Bearer ${token}`,
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify(transaction)
-//     })});
-//   };
+  const editTransaction = (transaction) => {
+    return getToken().then((token) => {
+        fetch(apiUrl, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(transaction)
+    })});
+  };
 
   // Provider method to delete a post by sending a DELETE request based on a Post's ID
   // to the Web API with a firebase Token for authentication.
@@ -78,7 +75,7 @@ export const TransactionProvider = (props) => {
 //   };
 
   return (
-    <TransactionContext.Provider value={{ Transactions, getAllTransactions }}>
+    <TransactionContext.Provider value={{ Transactions, getAllTransactions, getTransactionById, editTransaction }}>
       {props.children}
     </TransactionContext.Provider>
   );
