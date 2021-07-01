@@ -9,7 +9,7 @@ import Login from "./Login";
 import Hello from "./Hello";
 // import ConfirmDelete from "./ConfirmDelete";
 // import { PostDetails } from "./PostDetails";
-// import { CategoryList } from "../components/Category/CategoryList"
+import { CategoryList } from "./Category/CategoryList";
 // import { CategoryForm } from "../components/Category/CategoryForm"
 
 export default function ApplicationViews() {
@@ -51,15 +51,15 @@ export default function ApplicationViews() {
         
        {/*-----------------CATEGORY ROUTES--------------------*/} 
 
-        {/* <Route exact path="/categories">
+        <Route exact path="/categories">
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
 
-        <Route exact path="/categories/add">
+        {/* <Route exact path="/categories/add">
           {isLoggedIn ? <CategoryForm /> : <Redirect to="/login" />}
-        </Route>
+        </Route> */}
 
-        <Route exact path="/categories/edit/:categoryId(\d+)">
+        {/* <Route exact path="/categories/edit/:categoryId(\d+)">
           {isLoggedIn ? <CategoryForm /> : <Redirect to="/login" />}
         </Route> */}
 
