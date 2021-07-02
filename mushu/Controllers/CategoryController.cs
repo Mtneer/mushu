@@ -36,8 +36,9 @@ namespace mushu.Controllers
 
         // POST api/<CategoryController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Category category)
         {
+            _categoryRepository.AddCategory(category);
         }
 
         // PUT api/<CategoryController>/5

@@ -10,7 +10,7 @@ import Hello from "./Hello";
 // import ConfirmDelete from "./ConfirmDelete";
 // import { PostDetails } from "./PostDetails";
 import { CategoryList } from "./Category/CategoryList";
-// import { CategoryForm } from "../components/Category/CategoryForm"
+import { CategoryForm } from "../components/Category/CategoryForm"
 
 export default function ApplicationViews() {
   // import the isLoggedIn state variable from the UserProfileContext
@@ -55,9 +55,9 @@ export default function ApplicationViews() {
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
 
-        {/* <Route exact path="/categories/add">
+        <Route exact path="/categories/add">
           {isLoggedIn ? <CategoryForm /> : <Redirect to="/login" />}
-        </Route> */}
+        </Route>
 
         {/* <Route exact path="/categories/edit/:categoryId(\d+)">
           {isLoggedIn ? <CategoryForm /> : <Redirect to="/login" />}
