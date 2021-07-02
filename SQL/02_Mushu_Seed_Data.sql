@@ -8,9 +8,9 @@ set identity_insert [UserType] off
 set identity_insert [Category] on
 insert into [Category] ([Id], [Name]) 
 values (1, 'Restaurants'), (2, 'Gasoline'), (3, 'Entertainment'), (4, 'Charity'), (5, 'Merchandise'),
-0   (6, 'Fees'), (7, 'Travel'), (8, 'Home Improvement'), (9, 'Automotive'), (10, 'Groceries'), 
-0   (11,'Health and Beauty'), (12, 'Water Bill'), (13, 'Internet'), (14, 'Electric Bill'), 
-0   (15, 'Gas Bill'), (16, 'Investments')   
+   (6, 'Fees'), (7, 'Travel'), (8, 'Home Improvement'), (9, 'Automotive'), (10, 'Groceries'), 
+   (11,'Health and Beauty'), (12, 'Water Bill'), (13, 'Internet'), (14, 'Electric Bill'), 
+   (15, 'Gas Bill'), (16, 'Investments'), (17, 'Payments'), (18, 'Shipping')   
 set identity_insert [Category] off
 
 set identity_insert [UserProfile] on
