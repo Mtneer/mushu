@@ -16,12 +16,12 @@ export const CategoryForm = () => {
     const [isLoading, setIsLoading] = useState(true);
   
     useEffect(() => {
-        if(categoryId){
-        getCategoryById(categoryId)
-        .then(category => {
-            setCategoryFormInput(category)
-            setIsLoading(false)
-        })
+        if (categoryId) {
+            getCategoryById(categoryId)
+            .then(category => {
+                setCategoryFormInput(category)
+                setIsLoading(false)
+            })
         }
     },[])
   
@@ -45,7 +45,6 @@ export const CategoryForm = () => {
             editCategory({
                 Id: parseInt(categoryId),
                 Name: categoryFormInput.name,
-                
             })
             .then(() => history.push(`/categories`))
         } else {
@@ -58,7 +57,7 @@ export const CategoryForm = () => {
   
     return (
         <form className="categoryForm">
-        <h2 className="categoryForm__title">Add Category</h2>
+        <h2 className="categoryForm__title">{(categoryId)? "Edit Category" : "Add Category"}</h2>
         <fieldset>
             <div className="form-group">
                 <label htmlFor="title">Category Name:</label>
