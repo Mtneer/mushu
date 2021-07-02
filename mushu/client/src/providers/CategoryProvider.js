@@ -20,6 +20,17 @@ export const CategoryProvider = (props) => {
       .then(resp => resp.json())
       .then(setCategories);
   };
+  
+  const getCategoryById = (categoryId) => {
+    return getToken().then((token) =>
+        fetch(`${apiUrl}/${categoryId}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }))
+        .then(resp => resp.json())    
+  }
 
   const addCategory = (category) => {
     return getToken().then((token) =>
@@ -33,23 +44,10 @@ export const CategoryProvider = (props) => {
     }));
   };
 
-  const getCategoryById = (categoryId) => {
-    return getToken().then((token) =>
-        fetch(`${apiUrl}/${categoryId}`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }))
-        .then(resp => resp.json())    
-  }
-
-    // Provider method to edit a category by sending a PUT request based on a Category Object
+  // Provider method to edit a category by sending a PUT request based on a Category Object
   // to the Web API with a firebase Token for authentication.
   const editCategory = (category) => {
-    // debugger
     return getToken().then((token) => {
-        // debugger
         fetch(apiUrl, {
             method: "PUT",
             headers: {
@@ -71,7 +69,6 @@ export const CategoryProvider = (props) => {
     })).then(getAllCategories())
   };
   
-    
   return (
     <CategoryContext.Provider value={{ categories, getAllCategories, addCategory, deleteCategory, editCategory, getCategoryById }}>
       {props.children}

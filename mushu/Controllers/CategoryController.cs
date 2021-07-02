@@ -29,9 +29,9 @@ namespace mushu.Controllers
 
         // GET api/<CategoryController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Category Get(int id)
         {
-            return "value";
+            return _categoryRepository.GetCategoryById(id);
         }
 
         // POST api/<CategoryController>
@@ -51,6 +51,7 @@ namespace mushu.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _categoryRepository.Delete(id);
         }
     }
 }
