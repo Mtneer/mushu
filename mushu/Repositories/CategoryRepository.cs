@@ -120,7 +120,6 @@ namespace mushu.Repositories
                     cmd.Parameters.AddWithValue("@id", category.Id);
                     cmd.Parameters.AddWithValue("@name", category.Name);
 
-
                     cmd.ExecuteNonQuery();
                 }
             }

@@ -42,9 +42,10 @@ namespace mushu.Controllers
         }
 
         // PUT api/<CategoryController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put(Category category)
         {
+            _categoryRepository.Edit(category);
         }
 
         // DELETE api/<CategoryController>/5

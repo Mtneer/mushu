@@ -43,7 +43,7 @@ export const CategoryList=() => {
                   <tr key={c.id}>
                     <td>{i+1}</td>
                     <td>{c.name}</td>
-                    {/* <td><button id={c.id} onClick={onClickEdit}>Edit</button></td> */}
+                    <td><button id={c.id} onClick={onClickEdit}>Edit</button></td>
                     {c.isUsed ? <></> : <td><button id={c.id} onClick={onClickDelete}>Delete</button></td>}
                   </tr>
                 )})}
