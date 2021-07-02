@@ -30,12 +30,6 @@ export const CategoryProvider = (props) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(category)
-    }).then(resp => {
-      // debugger
-      if (resp.ok) {
-        return resp.json();
-      }
-      throw new Error("Unauthorized");
     }));
   };
 
