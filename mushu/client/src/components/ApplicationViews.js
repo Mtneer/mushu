@@ -7,7 +7,7 @@ import { TransactionForm } from "./Transaction/TransactionForm";
 import Login from "./Login";
 // import Register from "./Register";
 import Hello from "./Hello";
-// import ConfirmDelete from "./ConfirmDelete";
+import ConfirmDelete from "./Category/ConfirmDelete";
 // import { PostDetails } from "./PostDetails";
 import { CategoryList } from "./Category/CategoryList";
 import { CategoryForm } from "../components/Category/CategoryForm"
@@ -62,6 +62,10 @@ export default function ApplicationViews() {
         {/* <Route exact path="/categories/edit/:categoryId(\d+)">
           {isLoggedIn ? <CategoryForm /> : <Redirect to="/login" />}
         </Route> */}
+        
+        <Route exact path="/categories/delete/:categoryId(\d+)">
+          {isLoggedIn ? <ConfirmDelete /> : <Redirect to="/login" />}
+        </Route>
 
         {/*----------------Authentication Routes----------------- */}
         {/* Define the Login path as "/login". */}

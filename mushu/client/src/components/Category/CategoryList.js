@@ -16,7 +16,11 @@ export const CategoryList=() => {
   }, []);
 
   const onClickEdit = (e) => {
-    history.push(`/category/edit/${e.target.id}`);
+    history.push(`/categories/edit/${e.target.id}`);
+  }
+  
+  const onClickDelete = (e) => {
+    history.push(`/categories/delete/${e.target.id}`);
   }
 
   return (
@@ -40,6 +44,7 @@ export const CategoryList=() => {
                     <td>{i+1}</td>
                     <td>{c.name}</td>
                     {/* <td><button id={c.id} onClick={onClickEdit}>Edit</button></td> */}
+                    {c.isUsed ? <></> : <td><button id={c.id} onClick={onClickDelete}>Delete</button></td>}
                   </tr>
                 )})}
             </tbody>
