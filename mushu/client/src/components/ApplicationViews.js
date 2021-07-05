@@ -5,7 +5,7 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import { TransactionList } from "./Transaction/TransactionList";
 import { TransactionForm } from "./Transaction/TransactionForm";
 import Login from "./Login";
-// import Register from "./Register";
+import Register from "./Register";
 import Hello from "./Hello";
 import ConfirmDeleteCategory from "./Category/ConfirmDeleteCategory";
 // import { PostDetails } from "./PostDetails";
@@ -53,7 +53,6 @@ export default function ApplicationViews() {
         </Route> */}
         
        {/*-----------------CATEGORY ROUTES--------------------*/} 
-
         <Route exact path="/categories">
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
         </Route>
@@ -71,7 +70,6 @@ export default function ApplicationViews() {
         </Route>
 
         {/*-----------------BUDGET ROUTES--------------------*/} 
-
         <Route exact path="/budgets">
           {isLoggedIn ? <BudgetList /> : <Redirect to="/login" />}
         </Route>
@@ -88,11 +86,6 @@ export default function ApplicationViews() {
           {isLoggedIn ? <ConfirmDeleteBudget /> : <Redirect to="/login" />}
         </Route>
 
-        {/*----------------CONFIRM DELETE Route----------------- */}
-        {/* <Route exact path="/:table/delete/:itemId(\d+)">
-          {isLoggedIn ? <ConfirmDelete /> : <Redirect to="/login" />}
-        </Route> */}
-
         {/*----------------Authentication Routes----------------- */}
         {/* Define the Login path as "/login". */}
         <Route path="/login">
@@ -100,9 +93,10 @@ export default function ApplicationViews() {
         </Route>
 
         {/* Define the Register path as "/register". */}
-        {/* <Route path="/register">
+        <Route path="/register">
           <Register />
-        </Route> */}
+        </Route>
+        
       </Switch>
     </main>
   );

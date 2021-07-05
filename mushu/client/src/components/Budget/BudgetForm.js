@@ -72,6 +72,8 @@ export const BudgetForm = () => {
     return (
         <form className="budgetForm">
         <h2 className="budgetForm__title">{(budgetId)? "Edit Budget" : "Add Budget"}</h2>
+        {(budgetId)? 
+        <h5>{budgetFormInput?.category.name}</h5> :
         <fieldset className="col-6">
             <label htmlFor="category">Category:</label>
             <select
@@ -91,6 +93,7 @@ export const BudgetForm = () => {
                 ))}
             </select>
         </fieldset>
+        }
         <fieldset>
             <div className="form-group">
                 <label htmlFor="title">Budget Amount:</label>

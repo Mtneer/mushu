@@ -34,9 +34,9 @@ export default function Header() {
             { /* When isLoggedIn === true, we will render the Main App Navigation Links */ }
             {isLoggedIn &&
               <>
-                <NavItem>
+                {/* <NavItem>
                   <NavLink tag={RRNavLink} to="/accounts" onClick={toggle}>Accounts</NavLink>
-                </NavItem>
+                </NavItem> */}
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/transactions" onClick={toggle}>Transactions</NavLink>
                 </NavItem>

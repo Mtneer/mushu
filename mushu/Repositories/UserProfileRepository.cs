@@ -52,7 +52,7 @@ namespace mushu.Repositories
                 {
                     cmd.CommandText = @"INSERT INTO UserProfile (FirebaseUserId, Email, CreateDateTime, UserTypeId)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@FirebaseUserId, @Email, @CreateDateTime @UserTypeId)";
+                                        VALUES (@FirebaseUserId, @Email, @CreateDateTime, @UserTypeId)";
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", userProfile.FirebaseUserId);
                     DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
                     DbUtils.AddParameter(cmd, "@CreateDateTime", userProfile.CreateDateTime);
@@ -62,20 +62,5 @@ namespace mushu.Repositories
                 }
             }
         }
-
-        /*
-        public UserProfile GetByFirebaseUserId(string firebaseUserId)
-        {
-            return _context.UserProfile
-                       .Include(up => up.UserType) 
-                       .FirstOrDefault(up => up.FirebaseUserId == firebaseUserId);
-        }
-
-        public void Add(UserProfile userProfile)
-        {
-            _context.Add(userProfile);
-            _context.SaveChanges();
-        }
-        */
     }
 }
