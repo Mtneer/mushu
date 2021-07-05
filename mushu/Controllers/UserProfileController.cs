@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using mushu.Models;
 using mushu.Repositories;
 using System;
 using System.Collections.Generic;
@@ -35,20 +36,15 @@ namespace mushu.Controllers
 
         // POST api/<UserProfileController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post(UserProfile userProfile)
         {
-        }
-
-        // PUT api/<UserProfileController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<UserProfileController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            userProfile.CreateDateTime = DateTime.Now;
+            userProfile.UserTypeId = 2;
+            _userProfileRepository.Add(userProfile);
+            return CreatedAtAction(
+                nameof(GetUserProfile),
+                new { firebaseUserId = userProfile.FirebaseUserId },
+                userProfile);
         }
     }
 }
