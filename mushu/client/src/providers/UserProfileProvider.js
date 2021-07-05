@@ -18,10 +18,8 @@ export function UserProfileProvider(props) {
   }, []);
 
   const login = (email, pw) => {
-    debugger
     return firebase.auth().signInWithEmailAndPassword(email, pw)
       .then((signInResponse) => { 
-        // debugger
        return getUserProfile(signInResponse.user.uid)
       });
   };

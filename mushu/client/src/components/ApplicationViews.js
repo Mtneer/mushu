@@ -7,10 +7,13 @@ import { TransactionForm } from "./Transaction/TransactionForm";
 import Login from "./Login";
 // import Register from "./Register";
 import Hello from "./Hello";
-import ConfirmDelete from "./Category/ConfirmDelete";
+import ConfirmDeleteCategory from "./Category/ConfirmDeleteCategory";
 // import { PostDetails } from "./PostDetails";
 import { CategoryList } from "./Category/CategoryList";
-import { CategoryForm } from "../components/Category/CategoryForm"
+import { CategoryForm } from "./Category/CategoryForm"
+import { BudgetList } from "./Budget/BudgetList";
+import { BudgetForm } from "./Budget/BudgetForm"
+import { ConfirmDeleteBudget } from "./Budget/ConfirmDeleteBudget"
 
 export default function ApplicationViews() {
   // import the isLoggedIn state variable from the UserProfileContext
@@ -64,8 +67,31 @@ export default function ApplicationViews() {
         </Route>
         
         <Route exact path="/categories/delete/:categoryId(\d+)">
-          {isLoggedIn ? <ConfirmDelete /> : <Redirect to="/login" />}
+          {isLoggedIn ? <ConfirmDeleteCategory /> : <Redirect to="/login" />}
         </Route>
+
+        {/*-----------------BUDGET ROUTES--------------------*/} 
+
+        <Route exact path="/budgets">
+          {isLoggedIn ? <BudgetList /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route exact path="/budgets/add">
+          {isLoggedIn ? <BudgetForm /> : <Redirect to="/login" />}
+        </Route>
+
+        <Route exact path="/budgets/edit/:budgetId(\d+)">
+          {isLoggedIn ? <BudgetForm /> : <Redirect to="/login" />}
+        </Route>
+        
+        <Route exact path="/budgets/delete/:budgetId(\d+)">
+          {isLoggedIn ? <ConfirmDeleteBudget /> : <Redirect to="/login" />}
+        </Route>
+
+        {/*----------------CONFIRM DELETE Route----------------- */}
+        {/* <Route exact path="/:table/delete/:itemId(\d+)">
+          {isLoggedIn ? <ConfirmDelete /> : <Redirect to="/login" />}
+        </Route> */}
 
         {/*----------------Authentication Routes----------------- */}
         {/* Define the Login path as "/login". */}

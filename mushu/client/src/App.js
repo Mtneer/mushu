@@ -4,6 +4,7 @@ import './App.css';
 import { UserProfileProvider } from "./providers/UserProfileProvider";
 import { TransactionProvider } from "./providers/TransactionProvider";
 import { CategoryProvider } from "./providers/CategoryProvider";
+import { BudgetProvider } from "./providers/BudgetProvider";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 
@@ -13,8 +14,10 @@ function App() {
       <UserProfileProvider>
         <TransactionProvider>
           <CategoryProvider>
+            <BudgetProvider>
                 <Header />
                 <ApplicationViews />     
+            </BudgetProvider>
           </CategoryProvider>
         </TransactionProvider>
       </UserProfileProvider>

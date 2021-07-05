@@ -46,8 +46,8 @@ export const TransactionForm = () => {
             editTransaction({
                 Id: parseInt(transactionId),
                 Title: transactionToEdit.title,
-                Amount: transactionToEdit.content,
-                TransactionDateTime: transactionToEdit.publishDateTime,
+                Amount: transactionToEdit.amount,
+                TransactionDateTime: transactionToEdit.transactionDateTime,
                 CategoryId: parseInt(transactionToEdit.categoryId),
             })
             .then(() => history.push(`/transactions`))

@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace mushu.Models
 {
-    public class Transaction
+    public class Budget
     {
         public int Id { get; set; }
-        public string Title { get; set; }
         public decimal Amount { get; set; }
-        public DateTime TransactionDateTime { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public int UserProfileId { get; set; }
+
     }
 }
