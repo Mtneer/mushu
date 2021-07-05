@@ -28,12 +28,12 @@ namespace mushu.Controllers
             return _budgetRepository.GetAllBudgetsByUserProfileId(userProfileId);
         }
 
-        // GET api/<BudgetController>/5
-        //[HttpGet("/Detail/{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        // GET api/<BudgetController>/Detail/5
+        [HttpGet("Detail/{id}")]
+        public Budget GetById(int id)
+        {
+            return _budgetRepository.GetBudgetById(id);
+        }
 
         // POST api/<BudgetController>
         [HttpPost]

@@ -9,6 +9,6 @@ namespace mushu.Repositories
         void Delete(int id);
         void Edit(Budget budget);
         List<Budget> GetAllBudgetsByUserProfileId(int userProfileId);
-        Budget GetBudgetById(int id, int userProfileId);
+        Budget GetBudgetById(int id);
     }
 }

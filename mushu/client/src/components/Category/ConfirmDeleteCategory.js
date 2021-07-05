@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import {useParams, useHistory } from "react-router-dom";
 import { CategoryContext } from '../../providers/CategoryProvider';
 
-export const ConfirmDelete = () => {
+export const ConfirmDeleteCategory = () => {
     const { getCategoryById, deleteCategory } = useContext(CategoryContext);
     const { categoryId } = useParams();
     const [ category, setCategory ] = useState({});
@@ -35,4 +35,4 @@ export const ConfirmDelete = () => {
     );
   }
   
-  export default ConfirmDelete;
+  export default ConfirmDeleteCategory;

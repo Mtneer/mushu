@@ -44,7 +44,7 @@ namespace mushu.Repositories
             }
         }
 
-        public Budget GetBudgetById(int id, int userProfileId)
+        public Budget GetBudgetById(int id)
         {
             // Define a variable to identify the database connection
             // ("Connection" comes from the BaseRepository.cs)
@@ -60,10 +60,9 @@ namespace mushu.Repositories
                                c.Name
                           FROM Budget b
                      LEFT JOIN Category c ON b.CategoryId = c.Id
-                         WHERE b.UserProfileId = @upId AND b.Id = @id";
+                         WHERE b.Id = @id";
                     // Attach the UserId parameter to the SQL Query using SQLConnection provided methods
                     cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@upId", userProfileId);
                     // Execute the Query
                     var reader = cmd.ExecuteReader();
 
