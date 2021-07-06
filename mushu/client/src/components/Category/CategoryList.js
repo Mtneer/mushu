@@ -2,21 +2,22 @@ import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 // import {Category } from "./Category";
 import { CategoryContext } from "../../providers/CategoryProvider";
-
-import { Button } from "reactstrap";
+import { Heading, Container, Column, Box, Table, Button, Icon } from "react-bulma-components";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export const CategoryList=() => {
   const history = useHistory();
   const { categories, getAllCategories } = useContext(CategoryContext);
   
-  const columns = ["#", "Name"]
+  const columns = ["#", "Name", " "]
 
   useEffect(() => {
     getAllCategories();
   }, []);
 
   const onClickEdit = (e) => {
-    history.push(`/categories/edit/${e.target.id}`);
+    history.push(`/categories/edit/${e.currentTarget.id}`);
   }
   
   const onClickDelete = (e) => {
@@ -24,11 +25,21 @@ export const CategoryList=() => {
   }
 
   return (
-    <div className="container">
-
-      <div><Button onClick={() => history.push("/categories/add")}>Create Category</Button></div>
-      <div className="row justify-content-center">
-        <table>
+    <Container>
+      <div className="columns">
+        <Heading className="column" size={9}>Categories</Heading>
+        <div className="column" align-content='flex-end'>
+          <Button onClick={() => history.push("/categories/add")}>
+              <Icon>
+                <FontAwesomeIcon icon={faPlus} />
+              </Icon>
+              <span>Add New</span>
+          </Button>
+          
+        </div>
+      </div>
+      <Box>
+        <Table>
             <thead>
               <tr>
                 {columns.map((col, index) => (
@@ -38,19 +49,30 @@ export const CategoryList=() => {
             </thead>
             <tbody>
               {categories.sort((a, b) => a.name.localeCompare(b.name)).map((c, i) => {
-                  
                   return (
                   <tr key={c.id}>
                     <td>{i+1}</td>
                     <td>{c.name}</td>
-                    <td><button id={c.id} onClick={onClickEdit}>Edit</button></td>
-                    {c.isUsed ? <></> : <td><button id={c.id} onClick={onClickDelete}>Delete</button></td>}
+                    <td>
+                        <Button id={c.id} onClick={onClickEdit}>
+                            <Icon>
+                              <FontAwesomeIcon icon={faEdit} />
+                            </Icon>
+                        </Button>
+                        {c.isUsed ? <></> 
+                          : 
+                          <Button id={c.id} onClick={onClickDelete}>
+                              <Icon>
+                                <FontAwesomeIcon icon={faTrash} />
+                              </Icon>
+                          </Button>}
+                    </td>
                   </tr>
                 )})}
             </tbody>
-        </table>
-      </div>
-    </div>
+        </Table>
+      </Box>
+    </Container>
 
   );
 }

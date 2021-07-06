@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom"
 import { TransactionContext } from "../../providers/TransactionProvider";
 import { CategoryContext } from "../../providers/CategoryProvider";
-import { Box, Table, Button, Icon } from "react-bulma-components";
+import { Heading, Container, Box, Table, Button, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faEdit, faCheck } from "@fortawesome/free-regular-svg-icons";
 import { faEdit, faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
 
 export const TransactionList = () => {
@@ -62,8 +61,9 @@ export const TransactionList = () => {
   }
 
   return (
-    <div className="container">
+    <Container>
       <div className="row justify-content-center">
+        <Heading>Transaction History</Heading>
         <Box>
           <Table>
             <thead>
@@ -135,6 +135,6 @@ export const TransactionList = () => {
           </Table>
         </Box>
       </div>
-    </div>
+    </Container>
   );
 };

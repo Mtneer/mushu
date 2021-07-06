@@ -1,14 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { BudgetContext } from "../../providers/BudgetProvider";
-
-import { Button } from "reactstrap";
+import { Heading, Container, Column, Box, Table, Button, Icon } from "react-bulma-components";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export const BudgetList=() => {
   const history = useHistory();
   const { budgets, getAllBudgets } = useContext(BudgetContext);
   const loggedInUserId = JSON.parse(sessionStorage.getItem("userProfile")).id
-  const columns = ["Category", "Amount"]
+  const columns = ["Category", "Amount", " "]
 
   useEffect(() => {
     getAllBudgets(loggedInUserId);
@@ -23,11 +24,20 @@ export const BudgetList=() => {
   }
 
   return (
-    <div className="container">
-
-      <div><Button onClick={() => history.push("/budgets/add")}>Create Budget</Button></div>
-      <div className="row justify-content-center">
-        <table>
+    <Container>
+      <div className="columns">
+        <Heading className="column">Budgets</Heading>
+        <div className="column">
+          <Button onClick={() => history.push("/budgets/add")}>
+              <Icon>
+                <FontAwesomeIcon icon={faPlus} />
+              </Icon>
+              <span>Add New</span>
+          </Button>
+        </div>
+      </div>
+      <Box>
+        <Table>
             <thead>
               <tr>
                 {columns.map((col, index) => (
@@ -42,14 +52,24 @@ export const BudgetList=() => {
                   <tr key={b.id}>
                     <td>{b.category?.name}</td>
                     <td>{b.amount}</td>
-                    <td><button id={b.id} onClick={onClickEdit}>Edit</button></td>
-                    <td><button id={b.id} onClick={onClickDelete}>Delete</button></td>
+                    <td>
+                        <Button id={b.id} onClick={onClickEdit}>
+                            <Icon>
+                              <FontAwesomeIcon icon={faEdit} />
+                            </Icon>
+                        </Button> 
+                        <Button id={b.id} onClick={onClickDelete}>
+                            <Icon>
+                              <FontAwesomeIcon icon={faTrash} />
+                            </Icon>
+                        </Button>
+                    </td>
                   </tr>
                 )})}
             </tbody>
-        </table>
-      </div>
-    </div>
+        </Table>
+      </Box>
+    </Container>
 
   );
 }
