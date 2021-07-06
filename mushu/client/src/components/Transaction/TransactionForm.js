@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useState } from "react"
 import { TransactionContext } from "../../providers/TransactionProvider";
 import { CategoryContext } from "../../providers/CategoryProvider";
 import { useHistory, useParams } from 'react-router-dom';
-// import "./Post.css";
+import { Box, Table, Button, Icon } from "react-bulma-components";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from "@fortawesome/free-regular-svg-icons";
 
 export const TransactionForm = () => {
     const { getTransactionById, editTransaction } = useContext(TransactionContext);

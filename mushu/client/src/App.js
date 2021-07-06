@@ -7,6 +7,7 @@ import { CategoryProvider } from "./providers/CategoryProvider";
 import { BudgetProvider } from "./providers/BudgetProvider";
 import Header from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
+import 'bulma/css/bulma.min.css';
 
 function App() {
   return (
