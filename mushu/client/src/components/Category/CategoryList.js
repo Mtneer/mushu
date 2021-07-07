@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-// import {Category } from "./Category";
 import { CategoryContext } from "../../providers/CategoryProvider";
-import { Heading, Container, Column, Box, Table, Button, Icon } from "react-bulma-components";
+import { Heading, Container, Block, Box, Table, Button, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -26,51 +25,52 @@ export const CategoryList=() => {
 
   return (
     <Container>
-      <div className="columns">
-        <Heading className="column" size={9}>Categories</Heading>
-        <div className="column" align-content='flex-end'>
-          <Button onClick={() => history.push("/categories/add")}>
-              <Icon>
-                <FontAwesomeIcon icon={faPlus} />
-              </Icon>
-              <span>Add New</span>
-          </Button>
-          
-        </div>
-      </div>
       <Box>
-        <Table>
-            <thead>
-              <tr>
-                {columns.map((col, index) => (
-                  <th key={index}>{col}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {categories.sort((a, b) => a.name.localeCompare(b.name)).map((c, i) => {
-                  return (
-                  <tr key={c.id}>
-                    <td>{i+1}</td>
-                    <td>{c.name}</td>
-                    <td>
-                        <Button id={c.id} onClick={onClickEdit}>
-                            <Icon>
-                              <FontAwesomeIcon icon={faEdit} />
-                            </Icon>
-                        </Button>
-                        {c.isUsed ? <></> 
-                          : 
-                          <Button id={c.id} onClick={onClickDelete}>
+        <Block className="columns">
+          <Heading className="column" size={9}>Categories</Heading>
+          <div className="column" align-content='flex-end'>
+            <Button onClick={() => history.push("/categories/add")}>
+                <Icon>
+                  <FontAwesomeIcon icon={faPlus} />
+                </Icon>
+                <span>Add New</span>
+            </Button>
+          </div>
+        </Block>
+        <Block>
+          <Table>
+              <thead>
+                <tr>
+                  {columns.map((col, index) => (
+                    <th key={index}>{col}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {categories.sort((a, b) => a.name.localeCompare(b.name)).map((c, i) => {
+                    return (
+                    <tr key={c.id}>
+                      <td>{i+1}</td>
+                      <td>{c.name}</td>
+                      <td>
+                          <Button id={c.id} onClick={onClickEdit}>
                               <Icon>
-                                <FontAwesomeIcon icon={faTrash} />
+                                <FontAwesomeIcon icon={faEdit} />
                               </Icon>
-                          </Button>}
-                    </td>
-                  </tr>
-                )})}
-            </tbody>
-        </Table>
+                          </Button>
+                          {c.isUsed ? <></> 
+                            : 
+                            <Button id={c.id} onClick={onClickDelete}>
+                                <Icon>
+                                  <FontAwesomeIcon icon={faTrash} />
+                                </Icon>
+                            </Button>}
+                      </td>
+                    </tr>
+                  )})}
+              </tbody>
+          </Table>
+        </Block>
       </Box>
     </Container>
 

@@ -9,7 +9,8 @@ import { faEdit, faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
 export const TransactionList = () => {
   const { Transactions, getAllTransactions, editTransaction } = useContext(TransactionContext);
   const { categories, getAllCategories } = useContext(CategoryContext);
-  const columns = ["Date", "Retailer", "Amount", "Category"]
+  const columns = ["Date", "Retailer", "Amount", "Category", " "];
+  const colSizes = [];
   const [ showCatDropdown, setShowCatDropdown ] = useState(false);
   const [transactionToEdit, setTransactionToEdit] = useState({});
 

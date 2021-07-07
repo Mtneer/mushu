@@ -18,7 +18,7 @@ export default function Register() {
     } else {
       const userProfile = { email };
       register(userProfile, password)
-        .then(() => history.push("/"));
+        .then(() => history.push("/transactions"));
     }
  };
 
