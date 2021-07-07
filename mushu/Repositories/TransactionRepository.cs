@@ -98,6 +98,25 @@ namespace mushu.Repositories
             }
         }
 
+        public void AddTransactions(List<Transaction> transactions)
+        {
+            string sqlString = "INSERT INTO [Transaction] (TransactionDateTime, Title, Amount) VALUES ";
+            transactions.ForEach(t =>
+            {
+                sqlString += $"({t.TransactionDateTime}, {t.Title}, {t.Amount}), ";
+            });
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = sqlString;
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void UpdateTransaction(Transaction transaction)
         {
             using (var conn = Connection)

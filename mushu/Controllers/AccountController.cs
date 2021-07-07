@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using mushu.Models;
+using mushu.Repositories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,24 +14,31 @@ namespace mushu.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        // GET: api/<AccountController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IAccountRepository _accountRepository;
+        public AccountController(IAccountRepository accountRepository)
         {
-            return new string[] { "value1", "value2" };
+            _accountRepository = accountRepository;
         }
 
-        // GET api/<AccountController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/<AccountController>
+        [HttpGet("{userId}")]
+        public List<Account> Get(int userId)
         {
-            return "value";
+            return _accountRepository.GetAllAccountsByUserProfileId(userId);
         }
+
+        //// GET api/<AccountController>/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST api/<AccountController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Account account)
         {
+            _accountRepository.AddAccount(account);
         }
 
         // PUT api/<AccountController>/5

@@ -14,6 +14,7 @@ import { CategoryForm } from "./Category/CategoryForm"
 import { BudgetList } from "./Budget/BudgetList";
 import { BudgetForm } from "./Budget/BudgetForm"
 import { ConfirmDeleteBudget } from "./Budget/ConfirmDeleteBudget"
+import { AccountList } from "./Account/AccountList";
 
 export default function ApplicationViews() {
   // import the isLoggedIn state variable from the UserProfileContext
@@ -30,6 +31,23 @@ export default function ApplicationViews() {
         <Route path="/" exact>
           {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
         </Route>
+
+        {/*-----------------ACCOUNT ROUTES--------------------*/} 
+        <Route exact path="/accounts">
+          {isLoggedIn ? <AccountList /> : <Redirect to="/login" />}
+        </Route>
+
+        {/* <Route exact path="/budgets/add">
+          {isLoggedIn ? <BudgetForm /> : <Redirect to="/login" />}
+        </Route> */}
+
+        {/* <Route exact path="/budgets/edit/:budgetId(\d+)">
+          {isLoggedIn ? <BudgetForm /> : <Redirect to="/login" />}
+        </Route> */}
+        
+        {/* <Route exact path="/budgets/delete/:budgetId(\d+)">
+          {isLoggedIn ? <ConfirmDeleteBudget /> : <Redirect to="/login" />}
+        </Route> */}
         
         {/*-----------------TRANSACTION ROUTES--------------------*/}
         <Route exact path="/transactions">
@@ -40,9 +58,9 @@ export default function ApplicationViews() {
           {isLoggedIn ? <PostDetails/> : <Redirect to="/login" />}
         </Route> */}
         
-        {/* <Route exact path="/post/add">
-          {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
-        </Route> */}
+        <Route exact path="/transactions/add">
+          {isLoggedIn ? <TransactionForm /> : <Redirect to="/login" />}
+        </Route>
         
         <Route exact path="/transaction/edit/:transactionId(\d+)">
           {isLoggedIn ? <TransactionForm /> : <Redirect to="/login" />}
