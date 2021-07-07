@@ -1,99 +1,80 @@
 import React, { useContext, useEffect, useState } from "react"
 import { TransactionContext } from "../../providers/TransactionProvider";
+import { AccountContext } from "../../providers/AccountProvider";
 import { CategoryContext } from "../../providers/CategoryProvider";
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Box, Table, Button, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from "@fortawesome/free-regular-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Importer, ImporterField } from 'react-csv-importer';
+import { TransactionCategoryForm } from './TransactionCategoryForm';
 import 'react-csv-importer/dist/index.css';
 
 
 export const TransactionForm = () => {
-    const { getTransactionById, editTransaction } = useContext(TransactionContext);
+    const { addTransactions, getAllTransactions } = useContext(TransactionContext);
+    const { accounts, getAllAccounts } = useContext(AccountContext);
     const { categories, getAllCategories } = useContext(CategoryContext);
-    const [transactionToEdit, setTransactionToEdit] = useState({});
     const loggedInUserId = JSON.parse(sessionStorage.getItem("userProfile")).id;
+    const [isDisabled, setIsDisabled] = useState(true);
 
-    const {transactionId} = useParams();
     const history = useHistory();
 
     // wait for data before button is active
-    const [isLoading, setIsLoading] = useState(true);
+    const [isFinished, setIsFinished] = useState(false);
+    const [transactionsToAdd, setTransactionsToAdd] = useState([]);
+    const [selectedAccountId, setSelectedAccountId] = useState();
 
-    // useEffect(() => {
-    //     getAllCategories()
-    //     .then(() => {
-    //         getTransactionById(transactionId)
-    //         .then(transaction => {
-    //             setTransactionToEdit(transaction)
-    //             setIsLoading(false)
-    //         })
-    //     })
-    // }, []);
+    useEffect(() => {
+        getAllAccounts(loggedInUserId)
+        .then(getAllCategories)
+    }, [])
 
-    //when a field changes, update state. The return will re-render and display based on the values in state
-    //controlled component
-    // const handleControlledInputChange = (event) => {
-    //     //creating a copy of state to change and then set, using spread syntax to copy an object
-    //     let newTransaction = { ...transactionToEdit }
-    //     //post is an object with properties , set the property to the new value using obejct bracket notation
-    //     newTransaction[event.target.id] = event.target.value
-    //     //update state
-    //     setTransactionToEdit(newTransaction)
-    // }
-
-    // const handleClickSaveTransaction = (event) => {
-    //     event.preventDefault();
-    //     setIsLoading(true);
-    //     // if (postId) {
-    //         // PUT update
-    //         editTransaction({
-    //             Id: parseInt(transactionId),
-    //             Title: transactionToEdit.title,
-    //             Amount: transactionToEdit.amount,
-    //             TransactionDateTime: transactionToEdit.transactionDateTime,
-    //             CategoryId: parseInt(transactionToEdit.categoryId),
-    //         })
-    //         .then(() => history.push(`/transactions`))
-    //     // } else {
-    //     //     // debugger
-    //     //     addPost({
-    //     //         userProfileId: loggedInUserId,
-    //     //         Title: postFormInput.title,
-    //     //         Content: postFormInput.content,
-    //     //         PublishDateTime: postFormInput.publishDateTime,
-    //     //         ImageLocation: postFormInput.imageLocation,
-    //     //         CategoryId: parseInt(postFormInput.categoryId),
-    //     //         IsApproved: true
-    //     //     })
-    //     //     .then((parsedRes) => history.push(`/post/detail/${parsedRes.id}`))
-    //     // }
-    // }
+    const onClickSubmit = () => {
+        addTransactions(transactionsToAdd)
+        .then(getAllTransactions)
+        .then(() => history.push(`/transactions`))
+    }
 
     return (
         <div className="transactionForm">
             <h2 className="transactionForm__title">Import New Transactions</h2>
-        {/* // //<h4 className="transactionForm__retailer">{transactionToEdit?.title}</h4>
-        //     <fieldset className="col-6">
-        //         <label htmlFor="category">Category:</label>
-        //         <select
-        //             value={transactionToEdit?.categoryId}
-        //             name="category"
-        //             id="categoryId"
-        //             onChange={handleControlledInputChange}
-        //             required
-        //             className="form-control" >
-        //             <option value="0">Select a category</option>
-        //             {categories.map(currentCategory => (
-        //                 <option
-        //                     key={currentCategory.id}
-        //                     value={currentCategory.id}>
-        //                     {currentCategory.name}
-        //                 </option>
-        //             ))}
-        //         </select>
-        //     </fieldset> */}
+            <div className="column" align-content='flex-end'>
+                <Button onClick={onClickSubmit} disabled={isDisabled}>
+                    <Icon>
+                        <FontAwesomeIcon icon={faCheck} />
+                    </Icon>
+                    <span>Submit Transactions</span>
+                </Button>
+            </div>
+            <div>
+                <label htmlFor="category">Account:</label>
+                <select
+                    value={selectedAccountId}
+                    name="category"
+                    id="categoryId"
+                    onChange={e => {
+                        setSelectedAccountId(e.target.value);
+                    }}
+                    required
+                    className="form-control" >
+                    <option value="0">Select an account</option>
+                    {accounts.map(a => (
+                        <option
+                            key={a.id}
+                            value={a.id}>
+                            {a.accountName} - {a.accountType.label}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            {(isFinished) ? 
+            <TransactionCategoryForm 
+                transactionsToAdd={transactionsToAdd} 
+                setTransactionsToAdd={setTransactionsToAdd} 
+                isDisabled={isDisabled}
+                setIsDisabled={setIsDisabled} />
+            :
             <Importer
                 chunkSize={10000} // optional, internal parsing chunk size in bytes
                 assumeNoHeaders={false} // optional, keeps "data has headers" checkbox off by default
@@ -107,6 +88,8 @@ export const TransactionForm = () => {
                     // may be called several times if file is large
                     // (if this callback returns a promise, the widget will wait for it before parsing more data)
                     console.log("received batch of rows", rows);
+                    setTransactionsToAdd(rows);
+                    // debugger
 
                     // mock timeout to simulate processing
                     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -114,34 +97,46 @@ export const TransactionForm = () => {
                 onComplete={({ file, preview, fields, columnFields }) => {
                     // optional, invoked right after import is done (but user did not dismiss/reset the widget yet)
                     // showMyAppToastNotification();
+                    // debugger
+                    const listOfTransactions = [...transactionsToAdd];
+                    // debugger
+                    listOfTransactions.forEach(t => {
+                        if (t.category === null) {
+                            debugger
+                            t.categoryId = 0;
+                        } else {
+                            const cat = categories.find(c => t.category.includes(c.name))
+                            debugger
+                            if (cat) {
+                                debugger
+                                 t.categoryId = cat.id;
+                                 t.category = cat;
+                            } else {
+                                debugger
+                                t.categoryId = 0;
+                            }
+                        }
+                        t.accountId = +selectedAccountId;
+                        let transactionDateTime = t.transactionDateTime.split("/");
+                        t.transactionDateTime = `${transactionDateTime[2]}-${transactionDateTime[0]}-${transactionDateTime[1]}T00:00:00`
+                    })
                 }}
-                onClose={({ file, preview, fields, columnFields }) => {
+                onClose={() => {
+                    console.log('user clicked Finish');
                     // optional, invoked when import is done and user clicked "Finish"
                     // (if this is not specified, the widget lets the user upload another file)
-                    // goToMyAppNextPage();
+                    // addTransactions(transactionsToAdd)
+                    // .then(history.push(`/transactions`))
+                    setIsFinished(true);
+                    
                 }}
-
-                // CSV options passed directly to PapaParse if specified:
-                // delimiter={...}
-                // newline={...}
-                // quoteChar={...}
-                // escapeChar={...}
-                // comments={...}
-                // skipEmptyLines={...}
-                // delimitersToGuess={...}
                 >
                 <ImporterField name="transactionDateTime" label="Transaction Date Time" />
                 <ImporterField name="title" label="Retailer" />
                 <ImporterField name="amount" label="Amount" />
-                {/* <ImporterField name="postalCode" label="Postal Code" optional /> */}
+                <ImporterField name="category" label="Category" optional />
             </Importer>
-        {/* //     <div className="button-container">
-        //         <button className="button btn btn-primary"
-        //             onClick={handleClickSaveTransaction} disable={isLoading.toString()}>
-        //             Save Transaction
-        //         </button>
-        //         <button className="button btn btn-sm btn-secondary" onClick={() => {history.push("/transactions")}}>Cancel</button>
-            // </div> */}
+            }
         </div>
     )
 }

@@ -31,19 +31,20 @@ export const TransactionProvider = (props) => {
         }))
         .then(resp => resp.json())    
   }
-//   const addPost = (post) => {
-//     // debugger
-//     return getToken().then((token) =>
-//       fetch(apiUrl, {
-//             method: "POST",
-//             headers: {
-//                 Authorization: `Bearer ${token}`,
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify(post)
-//           }))
-//           .then(resp => resp.json())
-//   };
+
+  const addTransactions = (transactions) => {
+    // debugger
+    return getToken().then((token) =>
+      fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(transactions)
+          }))
+          .then(resp => resp.json())
+  };
 
 
   // Provider method to edit a post by sending a PUT request based on a Post Object
@@ -75,7 +76,7 @@ export const TransactionProvider = (props) => {
 //   };
 
   return (
-    <TransactionContext.Provider value={{ Transactions, getAllTransactions, getTransactionById, editTransaction }}>
+    <TransactionContext.Provider value={{ Transactions, getAllTransactions, getTransactionById, editTransaction, addTransactions }}>
       {props.children}
     </TransactionContext.Provider>
   );
