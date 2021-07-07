@@ -1,24 +1,3 @@
-USE [Mushu];
-GO
-
-set identity_insert [UserType] on
-insert into [UserType] ([ID], [Name]) VALUES (1, 'Admin'), (2, 'User');
-set identity_insert [UserType] off
-
-set identity_insert [Category] on
-insert into [Category] ([Id], [Name]) 
-values (1, 'Restaurants'), (2, 'Gasoline'), (3, 'Entertainment'), (4, 'Charity'), (5, 'Merchandise'),
-01_Mushu_Create_DB.sql    (6, 'Fees'), (7, 'Travel'), (8, 'Home Improvement'), (9, 'Automotive'), (10, 'Groceries'), 
-01_Mushu_Create_DB.sql    (11,'Health and Beauty'), (12, 'Water Bill'), (13, 'Internet'), (14, 'Electric Bill'), 
-01_Mushu_Create_DB.sql    (15, 'Gas Bill'), (16, 'Investments')   
-set identity_insert [Category] off
-
-set identity_insert [UserProfile] on
-insert into UserProfile (Id, Email, CreateDateTime, UserTypeId, FirebaseUserId) values (1, 'admin@admin.com', '2020-04-23', 1, '9uDAqHUJvDZzVKccDpassb3yKdo2');
-insert into UserProfile (Id, Email, CreateDateTime, UserTypeId, FirebaseUserId) values (2, 'test@test.com', '2020-04-23', 2, 'cKsmIkhu52X4HmdSgpQnBROmejw1');
-set identity_insert [UserProfile] off
-
-
 USE [master]
 
 IF db_id('Mushu') IS NULl
@@ -82,18 +61,16 @@ CREATE TABLE [Budget] (
   CONSTRAINT [FK_Budget_Category] FOREIGN KEY ([CategoryId]) REFERENCES [Category] ([Id]),
   CONSTRAINT [FK_Budget_UserProfile] FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
 )
-
 CREATE TABLE [Transaction] (
   [Id] integer PRIMARY KEY IDENTITY,
-  [Title] nvarchar(255) NOT NULL,
-  [Description] text NOT NULL,
-  [TransactionDateTime] datetime NOT NULL,
+  [TransactionDateTime] DATETIME NOT NULL,
+  [Title] NVARCHAR(39) NOT NULL,
+  [Amount] NUMERIC(6, 2) NOT NULL,
   [CategoryId] integer NOT NULL,
-  [AccountId] integer NOT NULL,
-  [Amount] decimal(9, 2) NOT NULL,
+  [AccountId] integer NOT NULL
 
   CONSTRAINT [FK_Transaction_Category] FOREIGN KEY ([CategoryId]) REFERENCES [Category] ([Id]),
   CONSTRAINT [FK_Transaction_Account] FOREIGN KEY ([AccountId]) REFERENCES [Account] ([Id])
 )
-
 GO
+
