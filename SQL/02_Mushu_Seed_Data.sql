@@ -18,4 +18,12 @@ insert into UserProfile (Id, Email, CreateDateTime, UserTypeId, FirebaseUserId) 
 insert into UserProfile (Id, Email, CreateDateTime, UserTypeId, FirebaseUserId) values (2, 'test@test.com', '2020-04-23', 2, 'cKsmIkhu52X4HmdSgpQnBROmejw1');
 set identity_insert [UserProfile] off
 
+set identity_insert [AccountType] on
+insert into [AccountType] ([ID], [Label]) 
+VALUES (1, 'Checking'), (2, 'Savings'), (3, 'Credit'), (4, 'Loan'), (5, 'Mortgage'), (6, 'Investment');
+set identity_insert [AccountType] off
 
+set identity_insert [Account] on
+insert into [Account] ([ID], [AccountName], [AccountTypeId], [UserProfileId]) 
+VALUES (1, 'BB&T', 1, 1), (2, 'BB&T', 2, 1), (3, 'Visa', 3, 1), (4, 'Robinhood', 6, 1)
+set identity_insert [Account] off
