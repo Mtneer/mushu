@@ -37,8 +37,9 @@ namespace mushu.Controllers
 
         // POST api/<TransactionController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(List<Transaction> transactions)
         {
+            _transactionRepository.AddTransactions(transactions);
         }
 
         // PUT api/<TransactionController>/5

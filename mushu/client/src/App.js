@@ -5,6 +5,7 @@ import { UserProfileProvider } from "./providers/UserProfileProvider";
 import { TransactionProvider } from "./providers/TransactionProvider";
 import { CategoryProvider } from "./providers/CategoryProvider";
 import { BudgetProvider } from "./providers/BudgetProvider";
+import { AccountProvider } from "./providers/AccountProvider";
 import { Header } from "./components/Header";
 import ApplicationViews from "./components/ApplicationViews";
 import 'bulma/css/bulma.min.css';
@@ -16,8 +17,10 @@ function App() {
         <TransactionProvider>
           <CategoryProvider>
             <BudgetProvider>
+              <AccountProvider>
                 <Header />
                 <ApplicationViews />     
+              </AccountProvider>
             </BudgetProvider>
           </CategoryProvider>
         </TransactionProvider>

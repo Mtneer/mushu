@@ -7,6 +7,7 @@ namespace mushu.Repositories
     {
         List<Transaction> GetAllTransactions();
         Transaction GetTransactionById(int id);
+        void AddTransactions(List<Transaction> transactions);
         void UpdateTransaction(Transaction transaction);
     }
 }

@@ -37,10 +37,8 @@ export const Header = () => {
                 { /* When isLoggedIn === true, we will render the Main App Navigation Links */ }
                 {isLoggedIn &&
                   <>
-                    {/* <Navbar.Item>
-                      <Navbar.Link renderAs={RRNavbar.Link} to="/accounts" onClick={toggle}>Accounts</Navbar.Link>
-                    </Navbar.Item> */}
-                    <Navbar.Link renderAs={RRNavLink} to={'/transactions'} onClick={toggle} arrowless='true' textDecoration="none">Transactions</Navbar.Link>
+                    <Navbar.Link renderAs={RRNavLink} to={'/accounts'} onClick={toggle} arrowless='true'>Accounts</Navbar.Link>
+                    <Navbar.Link renderAs={RRNavLink} to={'/transactions'} onClick={toggle} arrowless='true'>Transactions</Navbar.Link>
                     <Navbar.Link renderAs={RRNavLink} to={'/categories'} onClick={toggle} arrowless='true'>Categories</Navbar.Link>
                     {/* <Navbar.Item>
                       <Navbar.Link renderAs={RRNavbar.Link} to="/portfolio" onClick={toggle}>Portfolio</Navbar.Link>
