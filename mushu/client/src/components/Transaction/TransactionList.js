@@ -14,10 +14,12 @@ export const TransactionList = () => {
   const colSizes = [];
   const [ showCatDropdown, setShowCatDropdown ] = useState(false);
   const [transactionToEdit, setTransactionToEdit] = useState({});
+  const loggedInUserId = JSON.parse(sessionStorage.getItem("userProfile")).id
+
 
 
   useEffect(() => {
-    getAllTransactions()
+    getAllTransactions(loggedInUserId)
     .then(getAllCategories);
   }, []);
 

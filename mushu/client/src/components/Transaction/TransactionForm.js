@@ -100,21 +100,30 @@ export const TransactionForm = () => {
                     // optional, invoked right after import is done (but user did not dismiss/reset the widget yet)
                     // showMyAppToastNotification();
                     const listOfTransactions = [...transactionsToAdd];
-                    listOfTransactions.forEach(t => {
-                        if (t.category === null) {
+                    if (!listOfTransactions[0].category) {
+                        listOfTransactions.forEach(t => {
+                            t.category = null;
                             t.categoryId = 0;
-                        } else {
-                            const cat = categories.find(c => t.category.includes(c.name))
-                            if (cat) {
-                                 t.categoryId = cat.id;
-                                 t.category = cat;
-                            } else {
+                            t.accountId = +selectedAccountId;
+                            t.transactionDateTime = moment(t.transactionDateTime).format();
+                        })
+                    } else {
+                        listOfTransactions.forEach(t => {
+                            if (t.category === null) {
                                 t.categoryId = 0;
+                            } else {
+                                const cat = categories.find(c => t.category.includes(c.name))
+                                if (cat) {
+                                    t.categoryId = cat.id;
+                                    t.category = cat;
+                                } else {
+                                    t.categoryId = 0;
+                                }
                             }
-                        }
-                        t.accountId = +selectedAccountId;
-                        t.transactionDateTime = moment(t.transactionDateTime).format(); 
-                    })
+                            t.accountId = +selectedAccountId;
+                            t.transactionDateTime = moment(t.transactionDateTime).format(); 
+                        })
+                    }
                 }}
                 onClose={() => {
                     console.log('user clicked Finish');

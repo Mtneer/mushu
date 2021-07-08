@@ -22,18 +22,18 @@ namespace mushu.Controllers
         }
 
         // GET: api/<TransactionController>
-        [HttpGet]
-        public List<Transaction> Get()
+        [HttpGet("{loggedInUserId}")]
+        public List<Transaction> Get(int loggedInUserId)
         {
-            return _transactionRepository.GetAllTransactions();
+            return _transactionRepository.GetAllTransactions(loggedInUserId);
         }
 
         // GET api/<TransactionController>/5
-        [HttpGet("{id}")]
-        public Transaction Get(int id)
-        {
-            return _transactionRepository.GetTransactionById(id);
-        }
+        //[HttpGet("{id}")]
+        //public Transaction GetById(int id)
+        //{
+        //    return _transactionRepository.GetTransactionById(id);
+        //}
 
         // POST api/<TransactionController>
         [HttpPost]

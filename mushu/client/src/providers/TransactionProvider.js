@@ -9,9 +9,9 @@ export const TransactionProvider = (props) => {
   
   const [ Transactions, setTransactions ] = useState([]);
 
-  const getAllTransactions = () => {
+  const getAllTransactions = (loggedInUserId) => {
     return getToken().then((token) =>
-        fetch(apiUrl, {
+        fetch(`${apiUrl}/${loggedInUserId}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`

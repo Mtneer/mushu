@@ -43,9 +43,7 @@ export const Header = () => {
                     {/* <Navbar.Item>
                       <Navbar.Link renderAs={RRNavbar.Link} to="/portfolio" onClick={toggle}>Portfolio</Navbar.Link>
                     </Navbar.Item> */}
-                    {/* <Navbar.Item>
-                      <Navbar.Link renderAs={RRNavbar.Link} to="/spending" onClick={toggle}>Spending</Navbar.Link>
-                    </Navbar.Item> */}
+                    <Navbar.Link renderAs={RRNavLink} to={'/spending'} onClick={toggle} arrowless='true'>Spending</Navbar.Link>
                     <Navbar.Link renderAs={RRNavLink} to={'/budgets'} onClick={toggle} arrowless='true'>Budgets</Navbar.Link>
                     {/* <Navbar.Item>
                       <Navbar.Link renderAs={RRNavbar.Link} to="/markets" onClick={toggle}>Markets</Navbar.Link>
