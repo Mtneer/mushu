@@ -5,6 +5,7 @@ import { CategoryContext } from "../../providers/CategoryProvider";
 import { Heading, Container, Box, Table, Button, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faCheck, faBan, faPlus } from "@fortawesome/free-solid-svg-icons";
+import moment from 'moment';
 
 export const TransactionCategoryForm = ({transactionsToAdd, setTransactionsToAdd, isDisabled, setIsDisabled}) => {
 
@@ -51,7 +52,7 @@ export const TransactionCategoryForm = ({transactionsToAdd, setTransactionsToAdd
                   debugger
                   return (
                   <tr key={i+1}>
-                    <td>{t.transactionDateTime}</td>
+                    <td>{moment(t.transactionDateTime).format('l')}</td>
                     <td>{t.title}</td>
                     <td>${t.amount}</td>
                     {t.categoryId === 0 ? 

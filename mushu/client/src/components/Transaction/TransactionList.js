@@ -5,6 +5,7 @@ import { CategoryContext } from "../../providers/CategoryProvider";
 import { Heading, Container, Box, Table, Button, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faCheck, faBan, faPlus } from "@fortawesome/free-solid-svg-icons";
+import moment from 'moment';
 
 export const TransactionList = () => {
   const { Transactions, getAllTransactions, editTransaction } = useContext(TransactionContext);
@@ -86,7 +87,7 @@ export const TransactionList = () => {
               {Transactions.map((t) => {
                   return (
                   <tr key={t.id}>
-                    <td>{t.transactionDateTime.split("T",1)}</td>
+                    <td>{moment(t.transactionDateTime).format('l')}</td>
                     <td>{t.title}</td>
                     <td>${t.amount}</td>
                     {t.id === transactionToEdit.id ? 

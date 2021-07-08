@@ -33,7 +33,6 @@ export const TransactionProvider = (props) => {
   }
 
   const addTransactions = (transactions) => {
-    // debugger
     return getToken().then((token) =>
       fetch(apiUrl, {
             method: "POST",
@@ -43,7 +42,6 @@ export const TransactionProvider = (props) => {
             },
             body: JSON.stringify(transactions)
           }))
-          .then(resp => resp.json())
   };
 
 

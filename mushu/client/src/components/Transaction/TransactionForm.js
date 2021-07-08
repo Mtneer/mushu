@@ -9,6 +9,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Importer, ImporterField } from 'react-csv-importer';
 import { TransactionCategoryForm } from './TransactionCategoryForm';
 import 'react-csv-importer/dist/index.css';
+import moment from 'moment';
 
 
 export const TransactionForm = () => {
@@ -31,6 +32,7 @@ export const TransactionForm = () => {
     }, [])
 
     const onClickSubmit = () => {
+
         addTransactions(transactionsToAdd)
         .then(getAllTransactions)
         .then(() => history.push(`/transactions`))
@@ -97,28 +99,21 @@ export const TransactionForm = () => {
                 onComplete={({ file, preview, fields, columnFields }) => {
                     // optional, invoked right after import is done (but user did not dismiss/reset the widget yet)
                     // showMyAppToastNotification();
-                    // debugger
                     const listOfTransactions = [...transactionsToAdd];
-                    // debugger
                     listOfTransactions.forEach(t => {
                         if (t.category === null) {
-                            debugger
                             t.categoryId = 0;
                         } else {
                             const cat = categories.find(c => t.category.includes(c.name))
-                            debugger
                             if (cat) {
-                                debugger
                                  t.categoryId = cat.id;
                                  t.category = cat;
                             } else {
-                                debugger
                                 t.categoryId = 0;
                             }
                         }
                         t.accountId = +selectedAccountId;
-                        let transactionDateTime = t.transactionDateTime.split("/");
-                        t.transactionDateTime = `${transactionDateTime[2]}-${transactionDateTime[0]}-${transactionDateTime[1]}T00:00:00`
+                        t.transactionDateTime = moment(t.transactionDateTime).format(); 
                     })
                 }}
                 onClose={() => {

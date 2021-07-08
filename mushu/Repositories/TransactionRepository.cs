@@ -100,10 +100,11 @@ namespace mushu.Repositories
 
         public void AddTransactions(List<Transaction> transactions)
         {
-            string sqlString = "INSERT INTO [Transaction] (TransactionDateTime, Title, Amount) VALUES ";
+            string sqlString = "";
             transactions.ForEach(t =>
             {
-                sqlString += $"({t.TransactionDateTime}, {t.Title}, {t.Amount}), ";
+                RemoveCharactersFromTitle(t);
+                sqlString += $"INSERT INTO [Transaction] (TransactionDateTime, Title, Amount, AccountId, CategoryId) VALUES ('{t.TransactionDateTime}', '{t.Title}', {t.Amount}, {t.AccountId}, {t.CategoryId}); ";
             });
             using (var conn = Connection)
             {
@@ -133,6 +134,15 @@ namespace mushu.Repositories
 
                     cmd.ExecuteNonQuery();
                 }
+            }
+        }
+
+        private void RemoveCharactersFromTitle(Transaction transaction)
+        {
+            var charsToRemove = new string[] { "@", ",", ".", ";", "'" };
+            foreach (var c in charsToRemove)
+            {
+                transaction.Title = transaction.Title.Replace(c, string.Empty);
             }
         }
     }
