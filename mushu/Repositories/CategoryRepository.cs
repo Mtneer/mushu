@@ -25,7 +25,8 @@ namespace mushu.Repositories
                         SELECT c.Id AS cId, c.Name AS CategoryName,
                                t.Id AS TransactionId
                           FROM Category c
-                     LEFT JOIN [Transaction] t ON t.CategoryId = c.Id";
+                     LEFT JOIN [Transaction] t ON t.CategoryId = c.Id
+                      ORDER BY c.Id";
 
                     var reader = cmd.ExecuteReader();
 

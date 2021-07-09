@@ -25,63 +25,79 @@ namespace mushu.Controllers
 
         // GET: api/<SpendingController>
         [HttpGet]
-        public List<Summary> Get(int loggedInUserId)
+        public Summary Get(int loggedInUserId)
         {
-            var summaries = new List<Summary>();
+            var summary = new Summary
+            {
+                Axes = new List<string>(),
+                Data = new List<List<decimal>>(),
+                Series = new List<string>()
+            };
             List<Transaction> transactions = _transactionRepository.GetAllTransactions(loggedInUserId);
             List<Category> categories = _categoryRepository.GetAllCategories();
-            categories.ForEach(c =>
+
+            var numTransactions = transactions.Count;
+            var startDate = transactions[numTransactions - 1].TransactionDateTime; 
+            var endDate = transactions[0].TransactionDateTime;
+
+            int startMonth = startDate.Month;
+            int startYear = startDate.Year;
+            int endMonth = endDate.Month;
+            int endYear = endDate.Year;
+
+            int m = startMonth;
+            int y = startYear;
+
+            int i = 0;
+
+            while (y <= endYear)
             {
-                List<Transaction> categoryTransactions = transactions.Where(t => t.CategoryId == c.Id).OrderBy(t => t.TransactionDateTime).ToList();
-                summaries.Add(new Summary
+                while (m != endMonth || y != endYear)
                 {
-                    Category = c,
-                    MonthlyAverages = NewMonthlyAverages(categoryTransactions)
-                });
-            });
-            return summaries;
-        }
-
-        private List<MonthlyAverage> NewMonthlyAverages(List<Transaction> catTransactions)
-        {
-            var result = new List<MonthlyAverage>();
-            decimal sum = 0;
-
-            for (int i = 0; i< catTransactions.Count; i++)
-            {
-                int prevMonth = 0;
-                int prevYear = 0000;
-                if (i != 0)
-                {
-                    prevMonth = catTransactions[i-1].TransactionDateTime.Month;
-                    prevYear = catTransactions[i-1].TransactionDateTime.Year;
-                }
-                int currMonth = catTransactions[i].TransactionDateTime.Month;
-                int currYear = catTransactions[i].TransactionDateTime.Year;
-
-                if (prevYear == currYear)
-                {
-                    if (prevMonth == currMonth)
+                    summary.Axes.Add($"{y}-{m}");
+                    categories.ForEach(c =>
                     {
-                        // Add to the existing sum
-                        sum = sum + catTransactions[i].Amount;
+                        if (i == 0)
+                        {
+                            summary.Data.Add(new List<Decimal>());
+                        }
+                        int j = 0;
+                        List<Transaction> ts = transactions.Where(t => t.CategoryId == c.Id && t.TransactionDateTime.Month == m && t.TransactionDateTime.Year == y).ToList();
 
-                    } 
-                } else
-                {
-                    // the existing sum can be saved to a new MonthlyAverage object
-                    // a new sum can be initiated
-                    result.Add(new MonthlyAverage
-                    {
-                        Month = prevMonth,
-                        Year = prevYear,
-                        Amount = sum
+                        if (ts.Count > 0)
+                        {
+                            ts.ForEach(t =>
+                            {
+                                if (j == 0)
+                                {
+                                    summary.Data[c.Id-1].Add( 0 );
+                                }
+
+                                summary.Data[c.Id-1][i] += Math.Abs(t.Amount);
+                                j += 1;
+                            });
+                        }
+                        else
+                        {
+                            summary.Data[c.Id-1].Add( 0 );
+                        }
                     });
-                    sum = catTransactions[i].Amount;
+                    
+                    m += 1;
+                    if (m >= 12)
+                    {
+                        m = 1;
+                        break;
+                    }
+                    i += 1;
                 }
+                y += 1;
             }
 
-            return result;
+            categories.ForEach(c => summary.Series.Add(c.Name));
+
+
+            return summary;
         }
     }
 }

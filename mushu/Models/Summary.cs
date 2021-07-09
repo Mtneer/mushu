@@ -7,7 +7,8 @@ namespace mushu.Models
 {
     public class Summary
     {
-        public Category Category { get; set; }
-        public List<MonthlyAverage> MonthlyAverages { get; set; }
+        public List<string> Axes { get; set; }
+        public List<List<decimal>> Data { get; set; }
+        public List<string> Series { get; set; }
     }
 }

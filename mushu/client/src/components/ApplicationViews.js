@@ -13,7 +13,7 @@ import { CategoryList } from "./Category/CategoryList";
 import { CategoryForm } from "./Category/CategoryForm"
 import { BudgetList } from "./Budget/BudgetList";
 import { BudgetForm } from "./Budget/BudgetForm"
-import { ConfirmDeleteBudget } from "./Budget/ConfirmDeleteBudget"
+import ConfirmDeleteBudget from "./Budget/ConfirmDeleteBudget"
 import { AccountList } from "./Account/AccountList";
 
 export default function ApplicationViews() {

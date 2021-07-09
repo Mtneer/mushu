@@ -34,7 +34,7 @@ export const TransactionForm = () => {
     const onClickSubmit = () => {
 
         addTransactions(transactionsToAdd)
-        .then(getAllTransactions)
+        .then(getAllTransactions(loggedInUserId))
         .then(() => history.push(`/transactions`))
     }
 

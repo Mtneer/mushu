@@ -20,7 +20,7 @@ export const CategoryList=() => {
   }
   
   const onClickDelete = (e) => {
-    history.push(`/categories/delete/${e.target.id}`);
+    history.push(`/categories/delete/${e.currentTarget.id}`);
   }
 
   return (
