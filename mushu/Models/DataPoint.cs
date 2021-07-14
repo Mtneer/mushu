@@ -7,7 +7,7 @@ namespace mushu.Models
 {
     public class DataPoint
     {
-        public DateTime X { get; set; }
+        public string X { get; set; }
         public decimal Y { get; set; }
     }
 }

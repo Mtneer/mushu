@@ -12,7 +12,6 @@ namespace mushu.Repositories
 {
     public class TransactionRepository : BaseRepository, ITransactionRepository
     {
-
         public TransactionRepository(IConfiguration configuration) : base(configuration) { }
 
         public List<Transaction> GetAllTransactions(int loggedInUserId)
@@ -35,6 +34,43 @@ namespace mushu.Repositories
                       ORDER BY t.TransactionDateTime DESC";
 
                     cmd.Parameters.AddWithValue("@id", loggedInUserId);
+                    var reader = cmd.ExecuteReader();
+
+                    List<Transaction> transactions = new List<Transaction>();
+
+                    while (reader.Read())
+                    {
+                        transactions.Add(NewTransactionFromReader(reader));
+                    }
+                    reader.Close();
+
+                    return transactions;
+                }
+            }
+        }
+
+        public List<Transaction> GetTransactionsByDate(int loggedInUserId, DateTime startDate, DateTime endDate)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT t.Id, t.TransactionDateTime, t.Title, t.Amount, t.CategoryId, t.AccountId,
+                               c.Name AS CategoryName,
+                               a.AccountName, a.AccountTypeId,
+                               at.Label
+                          FROM [Transaction] t
+                     LEFT JOIN Category c ON t.CategoryId = c.Id
+                     LEFT JOIN Account a ON t.AccountId = a.Id
+                     LEFT JOIN AccountType at ON a.AccountTypeId = at.Id
+                         WHERE a.UserProfileId = @id AND t.TransactionDateTime > @startDate AND t.TransactionDateTime < @endDate
+                      ORDER BY t.TransactionDateTime DESC";
+
+                    cmd.Parameters.AddWithValue("@id", loggedInUserId);
+                    cmd.Parameters.AddWithValue("@startDate", startDate);
+                    cmd.Parameters.AddWithValue("@endDate", endDate);
                     var reader = cmd.ExecuteReader();
 
                     List<Transaction> transactions = new List<Transaction>();

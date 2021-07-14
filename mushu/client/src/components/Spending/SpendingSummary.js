@@ -2,47 +2,45 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom"
 import { SpendingContext } from "../../providers/SpendingProvider";
 import { CategoryContext } from "../../providers/CategoryProvider";
-import { Heading, Container, Box, Table, Button, Icon } from "react-bulma-components";
+import { Heading, Container, Box, Table, Button, Icon, Form } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faCheck, faBan, faPlus } from "@fortawesome/free-solid-svg-icons";
-// import moment from 'moment';
-import useChartConfig from 'UseChartConfig'
-import SyntaxHighlighter from 'SyntaxHighlighter'
-import { Chart } from 'react-charts'
+import moment from 'moment';
+import { AreaChart } from './AreaChart';
 
 export const SpendingSummary = () => {
-  const { getAllSpending } = useContext(SpendingContext);
+  const {  getAllSpending, getSpendingByDates } = useContext(SpendingContext);
+  const [ spendingSummaryData, setSpendingSummaryData ] = useState({});
   const { categories, getAllCategories } = useContext(CategoryContext);
-  const columns = ["Date", "Retailer", "Amount", "Category", " "];
-  const colSizes = [];
-  const [ showCatDropdown, setShowCatDropdown ] = useState(false);
-  const [ spendingSummary, setSpendingSummary ] = useState({});
+  const [ dateBounds, setDateBounds ] = useState({});
+  const [ userDefDates, setUserDefDates ] = useState(false);
+  
+  // const columns = ["Date", "Retailer", "Amount", "Category", " "];
+  // const colSizes = [];
+  const [ renderChart, setRenderChart ] = useState(false);
   const loggedInUserId = JSON.parse(sessionStorage.getItem("userProfile")).id;
-
-
 
   useEffect(() => {
       getAllCategories()
-      .then(getAllSpending(loggedInUserId))
-      .then((pr) => {
-        debugger
-        setSpendingSummary(pr)});
+      .then(() => {
+        if (!userDefDates)
+        {
+          getAllSpending(loggedInUserId)
+          .then(pR => {
+            setRenderChart(true)
+            setSpendingSummaryData(pR.data)
+          })
+        }
+        else {
+          getSpendingByDates(loggedInUserId, dateBounds.startDate, dateBounds.endDate)
+          .then(pR => {
+            setRenderChart(true)
+            setSpendingSummaryData(pR.data)
+          })
+        }
+      })
   }, []);
-
-  const history = useHistory();
-
-  const axes = React.useMemo(
-    () => [
-      { primary: true, type: 'linear', position: 'bottom' },
-      { type: 'linear', position: 'left' },
-    ],
-    []
-  )
-
-  const data = React.useMemo(
-    () => spendingSummary,
-    []
-  )
+     
 
 //   const onClickConfirm = (e) => {
 //     debugger
@@ -64,21 +62,52 @@ export const SpendingSummary = () => {
 
   //when a field changes, update state. The return will re-render and display based on the values in state
     //controlled component
-//     const handleControlledInputChange = (event) => {
-//       //creating a copy of state to change and then set, using spread syntax to copy an object
-//       let newTransaction = { ...transactionToEdit }
-//       //post is an object with properties , set the property to the new value using obejct bracket notation
-//       newTransaction[event.target.id] = event.target.value
-//       //update state
-//       setTransactionToEdit(newTransaction)
-//   }
+  //   const handleControlledInputChange = (event) => {
+  //     //creating a copy of state to change and then set, using spread syntax to copy an object
+  //     let newDateBound = { ...dateBounds }
+  //     //post is an object with properties , set the property to the new value using obejct bracket notation
+  //     newDateBound[event.target.id] = event.target.value
+  //     //update state
+  //     setDateBounds(newDateBound)
+  //     setUserDefDates(true)
+  // }
 
   return (
     <Container>
       <div className="row justify-content-center">
         <Box>
           <Heading>Spending Summary</Heading>
-          <Chart data={spendingSummary?.data} series={spendingSummary?.series} axes={axes} tooltip />
+          <div>
+            {/* <Form.Field>
+                <Form.Label>Start Date:</Form.Label>
+                <Form.Control>
+                    <Form.Input 
+                        type="date" 
+                        id="startDate" 
+                        onChange={handleControlledInputChange} required autoFocus 
+                        placeholder="Start Date" 
+                        value={dateBounds.startDate} />
+                </Form.Control>
+            </Form.Field>
+            <Form.Field>
+                <Form.Label>End Date:</Form.Label>
+                <Form.Control>
+                    <Form.Input 
+                        type="date" 
+                        id="endDate" 
+                        onChange={handleControlledInputChange} required autoFocus 
+                        placeholder="End Date" 
+                        value={dateBounds.endDate} />
+                </Form.Control>
+            </Form.Field> */}
+          </div>
+          <div style={{height: "70vh"}}>
+            {(renderChart)?
+              <AreaChart spendingSummaryData={spendingSummaryData} />
+            :
+              <p>loading</p>
+            }
+          </div>
           {/* <Table>
             <thead>
               <tr>
