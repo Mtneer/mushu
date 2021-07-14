@@ -41,7 +41,7 @@ export const TransactionList = () => {
       Id: transactionToEdit.id,
       CategoryId: parseInt(transactionToEdit.categoryId),
     })
-    .then(getAllTransactions)
+    .then(getAllTransactions(loggedInUserId))
     .then(() => {
       setTransactionToEdit({})
       setShowCatDropdown(false)

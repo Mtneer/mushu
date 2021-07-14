@@ -5,29 +5,39 @@ import { CategoryContext } from "../../providers/CategoryProvider";
 import { Heading, Container, Box, Table, Button, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faCheck, faBan, faPlus } from "@fortawesome/free-solid-svg-icons";
-import moment from 'moment';
-import useChartConfig from 'hooks/useChartConfig'
-import SyntaxHighlighter from 'components/SyntaxHighlighter'
+// import moment from 'moment';
+import useChartConfig from 'UseChartConfig'
+import SyntaxHighlighter from 'SyntaxHighlighter'
 import { Chart } from 'react-charts'
 
-export const TransactionList = () => {
+export const SpendingSummary = () => {
   const { getAllSpending } = useContext(SpendingContext);
   const { categories, getAllCategories } = useContext(CategoryContext);
   const columns = ["Date", "Retailer", "Amount", "Category", " "];
   const colSizes = [];
   const [ showCatDropdown, setShowCatDropdown ] = useState(false);
-  const [ spendingSummaries, setSpendingSummaries ] = useState({});
-  const loggedInUserId = JSON.parse(sessionStorage.getItem("userProfile")).id
+  const [ spendingSummary, setSpendingSummary ] = useState({});
+  const loggedInUserId = JSON.parse(sessionStorage.getItem("userProfile")).id;
 
 
 
   useEffect(() => {
       getAllCategories()
       .then(getAllSpending(loggedInUserId))
-      .then(setSpendingSummaries);
+      .then((pr) => {
+        debugger
+        setSpendingSummary(pr)});
   }, []);
 
   const history = useHistory();
+
+  const axes = React.useMemo(
+    () => [
+      { primary: true, type: 'linear', position: 'bottom' },
+      { type: 'linear', position: 'left' },
+    ],
+    []
+  )
 
 //   const onClickConfirm = (e) => {
 //     debugger
@@ -63,8 +73,8 @@ export const TransactionList = () => {
       <div className="row justify-content-center">
         <Box>
           <Heading>Spending Summary</Heading>
-          <Chart data={data} series={series} axes={axes} tooltip />
-          <Table>
+          <Chart data={spendingSummary?.data} series={spendingSummary?.series} axes={axes} tooltip />
+          {/* <Table>
             <thead>
               <tr>
                 {columns.map((col, index) => (
@@ -131,7 +141,7 @@ export const TransactionList = () => {
                   </tr>
                 )})}
             </tbody>
-          </Table>
+          </Table> */}
         </Box>
       </div>
     </Container>

@@ -44,6 +44,63 @@ namespace mushu.Repositories
             }
         }
 
+        public List<AccountType> GetAccountTypes()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT at.Id AS AccountTypeId, at.Label
+                          FROM AccountType at";
+
+                    var reader = cmd.ExecuteReader();
+
+                    List<AccountType> accountTypes = new List<AccountType>();
+
+                    while (reader.Read())
+                    {
+                        accountTypes.Add(NewAccountTypeFromReader(reader));
+                    }
+                    reader.Close();
+
+                    return accountTypes;
+                }
+            }
+        }
+
+        public Account GetAccountById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT a.Id, a.AccountName, a.AccountTypeId, a.UserProfileId,
+                               at.Label
+                          FROM Account a
+                     LEFT JOIN AccountType at ON a.AccountTypeId = at.Id
+                         WHERE a.Id = @Id";
+
+                    cmd.Parameters.AddWithValue("@Id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    Account account = null;
+
+                    if (reader.Read())
+                    {
+                        account = NewAccountFromReader(reader);
+                    }
+                    reader.Close();
+
+                    return account;
+                }
+            }
+        }
+
         public void AddAccount(Account account)
         {
             using (var conn = Connection)
@@ -67,6 +124,44 @@ namespace mushu.Repositories
             }
         }
 
+        public void EditAccount(Account account)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Account 
+                           SET AccountName = @AccountName,
+                               AccountTypeId = @AccountTypeId
+                         WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@AccountName", account.AccountName);
+                    cmd.Parameters.AddWithValue("@AccountTypeId", account.AccountTypeId);
+                    cmd.Parameters.AddWithValue("@id", account.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteAccount(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        DELETE FROM Account
+                         WHERE Id = @id";
+
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         private Account NewAccountFromReader(SqlDataReader reader)
         {
             return new Account()
@@ -75,11 +170,16 @@ namespace mushu.Repositories
                 AccountName = DbUtils.GetString(reader, "AccountName"),
                 AccountTypeId = DbUtils.GetInt(reader, "AccountTypeId"),
                 UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
-                AccountType = new AccountType
-                {
-                    Id = DbUtils.GetInt(reader, "AccountTypeId"),
-                    Label = DbUtils.GetString(reader, "Label")
-                }
+                AccountType = NewAccountTypeFromReader(reader)
+            };
+        }
+
+        private AccountType NewAccountTypeFromReader(SqlDataReader reader)
+        {
+            return new AccountType()
+            {
+                Id = DbUtils.GetInt(reader, "AccountTypeId"),
+                Label = DbUtils.GetString(reader, "Label")
             };
         }
     }

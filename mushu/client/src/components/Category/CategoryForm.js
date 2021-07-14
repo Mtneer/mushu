@@ -1,6 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { CategoryContext } from "../../providers/CategoryProvider";
+import { Box, Form, Button, Icon } from 'react-bulma-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
 
 export const CategoryForm = () => {
   
@@ -56,21 +59,33 @@ export const CategoryForm = () => {
     }
   
     return (
-        <form className="categoryForm">
-        <h2 className="categoryForm__title">{(categoryId)? "Edit Category" : "Add Category"}</h2>
-        <fieldset>
-            <div className="form-group">
-                <label htmlFor="title">Category Name:</label>
-                <input type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Category Name" value={categoryFormInput?.name} />
-            </div>
-        </fieldset>
-        
-        <button className="btn btn-primary"
-            onClick={handleClickSaveCategory}
-            disable={isLoading.toString()}>
-            {categoryId ? <>Save Category</>:<>Add Category</>}
-            </button>
-            <button className="button btn btn-sm btn-secondary" onClick={() => {history.push("/categories")}}>Cancel</button>
-        </form>
+        <Box>
+            <form className="categoryForm">
+            <h2 className="categoryForm__title">{(categoryId)? "Edit Category" : "Add Category"}</h2>
+            <Form.Field>
+                <Form.Label>Category Name:</Form.Label>
+                <Form.Control>
+                    <Form.Input 
+                        type="text" 
+                        id="name" 
+                        onChange={handleControlledInputChange} required autoFocus 
+                        placeholder="Category Name" 
+                        value={categoryFormInput?.name} />
+                </Form.Control>
+            </Form.Field>
+            <Form.Field kind="group">
+
+                <Button 
+                    onClick={handleClickSaveCategory}
+                    disable={isLoading.toString()}>
+                    {categoryId ? <>Save Category</>:<>Add Category</>}
+                </Button>
+                <Button 
+                    onClick={() => {history.push("/categories")}}>
+                    Cancel
+                </Button>
+            </Form.Field>
+            </form>
+        </Box>
     );
 }

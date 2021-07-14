@@ -2,6 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { CategoryContext } from "../../providers/CategoryProvider";
 import { BudgetContext } from "../../providers/BudgetProvider";
+import { Box, Form, Button, Icon } from 'react-bulma-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
 
 export const BudgetForm = () => {
   
@@ -70,43 +73,60 @@ export const BudgetForm = () => {
     }
   
     return (
-        <form className="budgetForm">
-        <h2 className="budgetForm__title">{(budgetId)? "Edit Budget" : "Add Budget"}</h2>
-        {(budgetId)? 
-        <h5>{budgetFormInput?.category.name}</h5> :
-        <fieldset className="col-6">
-            <label htmlFor="category">Category:</label>
-            <select
-                value={budgetFormInput?.categoryId}
-                name="category"
-                id="categoryId"
-                onChange={handleControlledInputChange}
-                required
-                className="form-control" >
-                <option value="0">Select a category</option>
-                {categories.map(currentCategory => (
-                    <option
-                        key={currentCategory.id}
-                        value={currentCategory.id}>
-                        {currentCategory.name}
-                    </option>
-                ))}
-            </select>
-        </fieldset>
-        }
-        <fieldset>
-            <div className="form-group">
-                <label htmlFor="title">Budget Amount:</label>
-                <input type="text" id="amount" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Amount" value={budgetFormInput?.amount} />
-            </div>
-        </fieldset>
-        
-        <button className="btn btn-primary"
-            onClick={handleClickSaveBudget}
-            disable={isLoading.toString()}>
-            {budgetId ? <>Save Budget</>:<>Add Budget</>}
-            </button>
-            <button className="button btn btn-sm btn-secondary" onClick={() => {history.push("/budgets")}}>Cancel</button>
-        </form>
+        <Box>
+            <form className="budgetForm">
+            <h2 className="budgetForm__title">{(budgetId)? "Edit Budget" : "Add Budget"}</h2>
+            {(budgetId)? 
+            <h5>{budgetFormInput?.category.name}</h5> :
+            <Form.Field>
+                <Form.Label>Category:</Form.Label>
+                <Form.Control>
+                    <Form.Select
+                        value={budgetFormInput?.categoryId}
+                        name="category"
+                        id="categoryId"
+                        onChange={handleControlledInputChange}
+                        required>
+                        <option value="0">Select a category</option>
+                        {categories.map(currentCategory => (
+                            <option
+                                key={currentCategory.id}
+                                value={currentCategory.id}>
+                                {currentCategory.name}
+                            </option>
+                        ))}
+                    </Form.Select>
+                </Form.Control>
+            </Form.Field>
+            }
+            <Form.Field>
+                <Form.Label>Budget Amount:</Form.Label>
+                <Form.Control>
+                    <Form.Input type="text" id="amount" onChange={handleControlledInputChange} required autoFocus placeholder="Amount" value={budgetFormInput?.amount} />
+                </Form.Control>
+            </Form.Field>
+            <Form.Field kind="group">
+                <Form.Control>
+                    <Button 
+                        onClick={handleClickSaveBudget}
+                        disable={isLoading.toString()}>
+                            <Icon>
+                                <FontAwesomeIcon icon={faCheck} />
+                            </Icon>
+                            {budgetId ? <span>Save Budget</span>:<span>Add Budget</span>}
+                    </Button>
+                </Form.Control>
+                <Form.Control>
+                    <Button 
+                        onClick={() => {history.push("/budgets")}}>
+                            <Icon>
+                                <FontAwesomeIcon icon={faBan} />
+                            </Icon>
+                            <span>Cancel</span>
+                    </Button>
+                </Form.Control>
+            </Form.Field>  
+            </form>
+        </Box>
     );
 }

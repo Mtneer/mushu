@@ -60,6 +60,7 @@ namespace mushu.Controllers
                         if (i == 0)
                         {
                             summary.Data.Add(new List<Decimal>());
+                            summary.Series.Add(c.Name);
                         }
                         int j = 0;
                         List<Transaction> ts = transactions.Where(t => t.CategoryId == c.Id && t.TransactionDateTime.Month == m && t.TransactionDateTime.Year == y).ToList();
@@ -84,7 +85,7 @@ namespace mushu.Controllers
                     });
                     
                     m += 1;
-                    if (m >= 12)
+                    if (m > 12)
                     {
                         m = 1;
                         break;
@@ -93,9 +94,6 @@ namespace mushu.Controllers
                 }
                 y += 1;
             }
-
-            categories.ForEach(c => summary.Series.Add(c.Name));
-
 
             return summary;
         }

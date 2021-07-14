@@ -8,7 +8,7 @@ import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 export const AccountList=() => {
   const history = useHistory();
   const { accounts, getAllAccounts } = useContext(AccountContext);
-  const loggedInUserId = JSON.parse(sessionStorage.getItem("userProfile")).id
+  const loggedInUserId = JSON.parse(sessionStorage.getItem("userProfile")).id;
   const columns = ["#", "Account Name", "Account Type", " "]
 
   useEffect(() => {
