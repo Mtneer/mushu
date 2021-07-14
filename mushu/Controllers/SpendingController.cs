@@ -29,9 +29,7 @@ namespace mushu.Controllers
         {
             var summary = new Summary
             {
-                Axes = new List<string>(),
-                Data = new List<List<decimal>>(),
-                Series = new List<string>()
+                Data = new List<CategoryData>()
             };
             List<Transaction> transactions = _transactionRepository.GetAllTransactions(loggedInUserId);
             List<Category> categories = _categoryRepository.GetAllCategories();
@@ -54,13 +52,16 @@ namespace mushu.Controllers
             {
                 while (m != endMonth || y != endYear)
                 {
-                    summary.Axes.Add($"{y}-{m}");
+                    //summary.Axes.Add($"{y}-{m}");
                     categories.ForEach(c =>
                     {
                         if (i == 0)
                         {
-                            summary.Data.Add(new List<Decimal>());
-                            summary.Series.Add(c.Name);
+                            summary.Data.Add(new CategoryData
+                            {
+                                Label = c.Name,
+                                Data = new List<DataPoint>()
+                            });
                         }
                         int j = 0;
                         List<Transaction> ts = transactions.Where(t => t.CategoryId == c.Id && t.TransactionDateTime.Month == m && t.TransactionDateTime.Year == y).ToList();
@@ -71,16 +72,24 @@ namespace mushu.Controllers
                             {
                                 if (j == 0)
                                 {
-                                    summary.Data[c.Id-1].Add( 0 );
+                                    summary.Data[c.Id-1].Data.Add(new DataPoint
+                                    {
+                                        X = new DateTime(y, m, 1),
+                                        Y = 0
+                                    });
                                 }
 
-                                summary.Data[c.Id-1][i] += Math.Abs(t.Amount);
+                                summary.Data[c.Id-1].Data[i].Y += Math.Abs(t.Amount);
                                 j += 1;
                             });
                         }
                         else
                         {
-                            summary.Data[c.Id-1].Add( 0 );
+                            summary.Data[c.Id-1].Data.Add(new DataPoint
+                            {
+                                X = new DateTime(y, m, 1),
+                                Y = 0
+                            });
                         }
                     });
                     

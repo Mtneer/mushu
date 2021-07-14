@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace mushu.Models
 {
-    public class Summary
+    public class DataPoint
     {
-        public List<CategoryData> Data { get; set; }
+        public DateTime X { get; set; }
+        public decimal Y { get; set; }
     }
 }

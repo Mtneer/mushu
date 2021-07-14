@@ -39,6 +39,11 @@ export const SpendingSummary = () => {
     []
   )
 
+  const data = React.useMemo(
+    () => spendingSummary,
+    []
+  )
+
 //   const onClickConfirm = (e) => {
 //     debugger
 //     editTransaction({
