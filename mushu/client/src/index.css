@@ -13,15 +13,14 @@ code {
 }
 
 main {
-  padding: 2em 4em;
+  padding: 4em 4em;
   width: 100vw;
-  height: 100vh;
+  height: auto;
   background-color: var(--periwinkle);
-
 }
 
 nav {
-  padding: 1em 4em 0em;
+  padding: 1em 10em 0em;
 }
 
 /* CSS HEX */

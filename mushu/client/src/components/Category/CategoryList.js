@@ -4,6 +4,7 @@ import { CategoryContext } from "../../providers/CategoryProvider";
 import { Heading, Container, Block, Box, Table, Button, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import TableScrollbar from 'react-table-scrollbar';
 
 export const CategoryList=() => {
   const history = useHistory();
@@ -26,9 +27,9 @@ export const CategoryList=() => {
   return (
     <Container>
       <Box>
-        <Block className="columns">
-          <Heading className="column" size={9}>Categories</Heading>
-          <div className="column" align-content='flex-end'>
+        <Block className="component-header">
+          <Heading size={9}>Categories</Heading>
+          <div>
             <Button onClick={() => history.push("/categories/add")}>
                 <Icon>
                   <FontAwesomeIcon icon={faPlus} />
@@ -37,7 +38,8 @@ export const CategoryList=() => {
             </Button>
           </div>
         </Block>
-        <Block>
+        <Block className="table-container">
+          <TableScrollbar>
           <Table>
               <thead>
                 <tr>
@@ -70,6 +72,7 @@ export const CategoryList=() => {
                   )})}
               </tbody>
           </Table>
+          </TableScrollbar>
         </Block>
       </Box>
     </Container>

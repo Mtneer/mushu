@@ -28,7 +28,6 @@ export const Header = () => {
   return (
     <div>
       <Navbar aria-label="main navigation"  
-            transparent
             fixed='top' 
             active={isOpen}>
         <Navbar.Brand>
@@ -37,7 +36,7 @@ export const Header = () => {
             alt="Bulma: a modern CSS framework based on Flexbox"
             src={logo}/>
           </div>
-          mushu
+          <h1 className="logo-title">mushu</h1>
         </Navbar.Brand>
         <Navbar.Burger className="nav-burger"
           onClick={toggle} />

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Box, Button, Form, Icon } from 'react-bulma-components';
+import { Box, Button, Form, Icon, Block} from 'react-bulma-components';
 import { useHistory, Link } from "react-router-dom";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,6 +23,7 @@ export default function Login() {
 
   return (
     <Box className="form">
+      <Block className="component-container">
       <form onSubmit={loginSubmit}>
         <Form.Field>
           <Form.Label htmlFor="email">Email</Form.Label>
@@ -46,6 +47,7 @@ export default function Login() {
           </Form.Control>
         </Form.Field>
       </form>
+      </Block>
     </Box>
   );
 }

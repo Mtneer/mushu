@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom"
 import { SpendingContext } from "../../providers/SpendingProvider";
 import { CategoryContext } from "../../providers/CategoryProvider";
-import { Heading, Container, Box, Table, Button, Icon, Form } from "react-bulma-components";
+import { Heading, Container, Box, Table, Button, Icon, Form, Block } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faCheck, faBan, faPlus } from "@fortawesome/free-solid-svg-icons";
 import moment from 'moment';
@@ -76,6 +76,7 @@ export const SpendingSummary = () => {
     <Container>
       <div className="row justify-content-center">
         <Box>
+        <Block className="component-header">
           <Heading>Spending Summary</Heading>
           <div>
             {/* <Form.Field>
@@ -101,13 +102,17 @@ export const SpendingSummary = () => {
                 </Form.Control>
             </Form.Field> */}
           </div>
-          <div style={{height: "70vh"}}>
-            {(renderChart)?
-              <AreaChart spendingSummaryData={spendingSummaryData} />
-            :
-              <p>loading</p>
-            }
-          </div>
+          </Block>
+          <Block>
+
+            <div className="content-container">
+              {(renderChart)?
+                <AreaChart spendingSummaryData={spendingSummaryData} />
+              :
+                <p>loading</p>
+              }
+            </div>
+          </Block>
           {/* <Table>
             <thead>
               <tr>
