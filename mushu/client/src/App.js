@@ -8,6 +8,7 @@ import { BudgetProvider } from "./providers/BudgetProvider";
 import { AccountProvider } from "./providers/AccountProvider";
 import { SpendingProvider } from "./providers/SpendingProvider";
 import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 import ApplicationViews from "./components/ApplicationViews";
 import 'bulma/css/bulma.min.css';
 
@@ -21,7 +22,7 @@ function App() {
               <AccountProvider>
                 <SpendingProvider>
                   <Header />
-                  <ApplicationViews />     
+                  <ApplicationViews /> 
                 </SpendingProvider>
               </AccountProvider>
             </BudgetProvider>

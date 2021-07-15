@@ -74,7 +74,6 @@ export const CategoryForm = () => {
                 </Form.Control>
             </Form.Field>
             <Form.Field kind="group">
-
                 <Button 
                     onClick={handleClickSaveCategory}
                     disable={isLoading.toString()}>

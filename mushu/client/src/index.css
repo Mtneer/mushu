@@ -13,9 +13,22 @@ code {
 }
 
 main {
-  margin: 2em 4em;
+  padding: 2em 4em;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--periwinkle);
+
 }
 
 nav {
   padding: 1em 4em 0em;
+}
+
+/* CSS HEX */
+:root {
+  --firebrick: #BB2129ff;
+  --carrot-orange: #EE962Eff;
+  --spanish-blue: #3673ABff;
+  --periwinkle: #B9C1DF;
+  --space-cadet: #252753ff;
 }

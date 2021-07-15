@@ -7,7 +7,10 @@ import {
 } from 'react-bulma-components';
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faSignInAlt, faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faKey, faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import './Header.css';
+import logo from './logo.png';
+
 
 export const Header = () => {
   // import the isLoggedIn state variable and logout function from
@@ -24,13 +27,20 @@ export const Header = () => {
 
   return (
     <div>
-      <Navbar aria-label="main navigation" 
-            color='dark' 
+      <Navbar aria-label="main navigation"  
             transparent
             fixed='top' 
             active={isOpen}>
-        <Navbar.Brand>mushu</Navbar.Brand>
-        <Navbar.Burger onClick={toggle} />
+        <Navbar.Brand>
+          <div className="logo-container">  
+            <img className="logo"
+            alt="Bulma: a modern CSS framework based on Flexbox"
+            src={logo}/>
+          </div>
+          mushu
+        </Navbar.Brand>
+        <Navbar.Burger className="nav-burger"
+          onClick={toggle} />
         <Navbar.Menu>
             <Navbar.Container position='start' tabs='true'>
               {/* <Navbar.Dropdown> */}
@@ -53,7 +63,7 @@ export const Header = () => {
                 }
               {/* </Navbar.Dropdown> */}
             </Navbar.Container>
-            <Navbar.Container align="end">
+            <Navbar.Container align="end" className="form-group">
                 {/* When isLoggedIn === true, we will separately render the Logout button */}
                 {isLoggedIn ?
                   <>
@@ -66,13 +76,13 @@ export const Header = () => {
                   </>
                 :
                   <>
-                    <Button renderAs={RRNavLink} to={'/login'}>
+                    <Button className="login-button form-group-element" renderAs={RRNavLink} to={'/login'} color="primary">
                       <Icon>
-                        <FontAwesomeIcon icon={faSignInAlt} />
+                        <FontAwesomeIcon icon={faKey} />
                       </Icon>
                       <span>Login</span>
                     </Button>
-                    <Button renderAs={RRNavLink} to={'/register'}>
+                    <Button className="register-button form-group-element" renderAs={RRNavLink} to={'/register'}>
                       <Icon>
                         <FontAwesomeIcon icon={faUserEdit} />
                       </Icon>
