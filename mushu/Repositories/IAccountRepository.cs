@@ -5,7 +5,11 @@ namespace mushu.Repositories
 {
     public interface IAccountRepository
     {
-        void AddAccount(Account account);
         List<Account> GetAllAccountsByUserProfileId(int userProfileId);
+        List<AccountType> GetAccountTypes();
+        Account GetAccountById(int id);
+        void AddAccount(Account account);
+        void EditAccount(Account account);
+        void DeleteAccount(int id);
     }
 }

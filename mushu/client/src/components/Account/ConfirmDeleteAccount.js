@@ -1,26 +1,26 @@
 import React, { useContext, useState, useEffect } from "react";
 import {useParams, useHistory } from "react-router-dom";
-import { BudgetContext } from '../../providers/BudgetProvider';
+import { AccountContext } from '../../providers/AccountProvider';
 import { Box, Form, Button, Icon } from 'react-bulma-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
 
-export const ConfirmDeleteBudget = () => {
-    const { getBudgetById, deleteBudget, getAllBudgets } = useContext(BudgetContext);
-    const { budgetId } = useParams();
-    const [ budget, setBudget ] = useState({});
+export const ConfirmDeleteAccount = () => {
+    const { getAccountById, deleteAccount, getAllAccounts } = useContext(AccountContext);
+    const { accountId } = useParams();
+    const [ account, setAccount ] = useState({});
     const history = useHistory();
     const loggedInUserId = JSON.parse(sessionStorage.getItem("userProfile")).id;
 
     useEffect(() => {
-        getBudgetById(budgetId)
-        .then((parsedR) => setBudget(parsedR));
+        getAccountById(accountId)
+        .then((parsedR) => setAccount(parsedR));
     },[])
 
     const onClickConfirm = () => {
-        deleteBudget(budgetId)
-        .then(getAllBudgets(loggedInUserId)) 
-        history.push("/budgets");
+        deleteAccount(accountId)
+        .then(getAllAccounts(loggedInUserId)) 
+        history.push("/accounts");
     }
 
     return (
@@ -28,7 +28,7 @@ export const ConfirmDeleteBudget = () => {
         <form>
           <Form.Field>
             <Form.Label>
-              <h3>{`Are you sure you want to delete the ${budget.category?.name} budget of $${budget.amount}?`}</h3>
+              <h3>{`Are you sure you want to delete the ${account.accountName} account?`}</h3>
             </Form.Label>
             <Button.Group align='center'>
               <Button onClick={onClickConfirm}>
@@ -37,7 +37,7 @@ export const ConfirmDeleteBudget = () => {
                   </Icon>
                   <span>Confirm</span>
               </Button>
-              <Button onClick={() => {history.push("/budgets")}}>
+              <Button onClick={() => {history.push("/accounts")}}>
                   <Icon>
                     <FontAwesomeIcon icon={faBan} />
                   </Icon>
@@ -50,4 +50,4 @@ export const ConfirmDeleteBudget = () => {
     );
   }
   
-  export default ConfirmDeleteBudget;
+  export default ConfirmDeleteAccount;

@@ -13,8 +13,11 @@ import { CategoryList } from "./Category/CategoryList";
 import { CategoryForm } from "./Category/CategoryForm"
 import { BudgetList } from "./Budget/BudgetList";
 import { BudgetForm } from "./Budget/BudgetForm"
-import { ConfirmDeleteBudget } from "./Budget/ConfirmDeleteBudget"
+import ConfirmDeleteBudget from "./Budget/ConfirmDeleteBudget"
 import { AccountList } from "./Account/AccountList";
+import { AccountForm } from "./Account/AccountForm";
+import { ConfirmDeleteAccount } from "./Account/ConfirmDeleteAccount";
+import { SpendingSummary } from "./Spending/SpendingSummary";
 
 export default function ApplicationViews() {
   // import the isLoggedIn state variable from the UserProfileContext
@@ -37,17 +40,17 @@ export default function ApplicationViews() {
           {isLoggedIn ? <AccountList /> : <Redirect to="/login" />}
         </Route>
 
-        {/* <Route exact path="/budgets/add">
-          {isLoggedIn ? <BudgetForm /> : <Redirect to="/login" />}
-        </Route> */}
+        <Route exact path="/accounts/add">
+          {isLoggedIn ? <AccountForm /> : <Redirect to="/login" />}
+        </Route>
 
-        {/* <Route exact path="/budgets/edit/:budgetId(\d+)">
-          {isLoggedIn ? <BudgetForm /> : <Redirect to="/login" />}
-        </Route> */}
+        <Route exact path="/accounts/edit/:accountId(\d+)">
+          {isLoggedIn ? <AccountForm /> : <Redirect to="/login" />}
+        </Route>
         
-        {/* <Route exact path="/budgets/delete/:budgetId(\d+)">
-          {isLoggedIn ? <ConfirmDeleteBudget /> : <Redirect to="/login" />}
-        </Route> */}
+        <Route exact path="/accounts/delete/:accountId(\d+)">
+          {isLoggedIn ? <ConfirmDeleteAccount /> : <Redirect to="/login" />}
+        </Route>
         
         {/*-----------------TRANSACTION ROUTES--------------------*/}
         <Route exact path="/transactions">
@@ -69,6 +72,11 @@ export default function ApplicationViews() {
         {/* <Route exact path="/post/delete/:postId(\d+)">
           {isLoggedIn ? <ConfirmDelete /> : <Redirect to="/login" />}
         </Route> */}
+
+        {/*-----------------SPENDING ROUTES--------------------*/}
+        <Route exact path="/spending">
+          {isLoggedIn ? <SpendingSummary /> : <Redirect to="/login" />}
+        </Route>
         
        {/*-----------------CATEGORY ROUTES--------------------*/} 
         <Route exact path="/categories">

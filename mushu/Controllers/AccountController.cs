@@ -27,12 +27,19 @@ namespace mushu.Controllers
             return _accountRepository.GetAllAccountsByUserProfileId(userId);
         }
 
+        // GET: api/<AccountController>
+        [HttpGet("AccountTypes")]
+        public List<AccountType> GetAccountTypes()
+        {
+            return _accountRepository.GetAccountTypes();
+        }
+
         //// GET api/<AccountController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        [HttpGet("Detail/{id}")]
+        public Account GetById(int id)
+        {
+            return _accountRepository.GetAccountById(id);
+        }
 
         // POST api/<AccountController>
         [HttpPost]
@@ -42,15 +49,17 @@ namespace mushu.Controllers
         }
 
         // PUT api/<AccountController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put(Account account)
         {
+            _accountRepository.EditAccount(account);
         }
 
         // DELETE api/<AccountController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _accountRepository.DeleteAccount(id);
         }
     }
 }

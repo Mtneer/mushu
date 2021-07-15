@@ -8,6 +8,7 @@ export const AccountProvider = (props) => {
   const { getToken } = useContext(UserProfileContext);
  
   const [ accounts, setAccounts ] = useState([]);
+  const [ accountTypes, setAccountTypes ] = useState([]);
   
   const getAllAccounts = (loggedInUserId) => {
     return getToken().then((token) =>
@@ -20,17 +21,29 @@ export const AccountProvider = (props) => {
       .then(resp => resp.json())
       .then(setAccounts);
   };
+
+  const getAllAccountTypes = () => {
+    return getToken().then((token) =>
+        fetch(`${apiUrl}/AccountTypes`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }))
+      .then(resp => resp.json())
+      .then(setAccountTypes);
+  };
   
-//   const getAccountById = (accountId) => {
-//     return getToken().then((token) =>
-//         fetch(`${apiUrl}/Detail/${accountId}`, {
-//             method: "GET",
-//             headers: {
-//                 Authorization: `Bearer ${token}`
-//             }
-//         }))
-//         .then(resp => resp.json())    
-//   }
+  const getAccountById = (accountId) => {
+    return getToken().then((token) =>
+        fetch(`${apiUrl}/Detail/${accountId}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }))
+        .then(resp => resp.json())    
+  }
 
   const addAccount = (account) => {
     return getToken().then((token) =>
@@ -70,7 +83,7 @@ export const AccountProvider = (props) => {
   };
   
   return (
-    <AccountContext.Provider value={{ accounts, getAllAccounts, addAccount, deleteAccount, editAccount }}>
+    <AccountContext.Provider value={{ accounts, accountTypes, getAllAccounts, getAllAccountTypes, getAccountById, addAccount, deleteAccount, editAccount }}>
       {props.children}
     </AccountContext.Provider>
   );

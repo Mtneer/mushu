@@ -1,0 +1,27 @@
+.custom-footer {
+    background-color: var(--space-cadet) !important;
+    color: white !important;
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 30;
+    min-height: 3.25rem;
+    padding: 1em 4em 0em;
+    bottom: 0;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+/* a:link {
+    color: var(--carrot-orange) !important;
+} */
+
+a:hover {
+    color: var(--firebrick) !important;
+}
+
+strong {
+    color: var(--carrot-orange) !important;
+}

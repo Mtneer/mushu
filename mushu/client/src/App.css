@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--space-cadet);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -39,4 +39,22 @@
 
 .navbar-link {
   text-decoration: none;
+}
+
+.container {
+  max-width: 70vw !important;
+}
+
+.table-container {
+  height:50vh; 
+}
+.content-container {
+  margin: 1em;
+  height:50vh; 
+}
+
+.component-header {
+  padding: 0em 1em !important;
+  display: flex;
+  justify-content: space-between;
 }

@@ -27,7 +27,7 @@ export const TransactionCategoryForm = ({transactionsToAdd, setTransactionsToAdd
         const newTransactionsToAdd = [...transactionsToAdd];
         const tId = +e.target.id;
         newTransactionsToAdd[tId-1].categoryId = +e.target.value;
-        newTransactionsToAdd[tId-1].category = categories[parseInt(e.target.value) - 1];
+        newTransactionsToAdd[tId-1].category = categories.find(c => c.id === parseInt(e.target.value));
         setTransactionsToAdd(newTransactionsToAdd);
         const numUnassigned = transactionsToAdd.filter(t => t.categoryId === 0).length;
         if (numUnassigned === 0) {

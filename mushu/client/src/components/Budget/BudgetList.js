@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { BudgetContext } from "../../providers/BudgetProvider";
-import { Heading, Container, Column, Box, Table, Button, Icon } from "react-bulma-components";
+import { Heading, Container, Block, Box, Table, Button, Icon } from "react-bulma-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import TableScrollbar from 'react-table-scrollbar';
 
 export const BudgetList=() => {
   const history = useHistory();
@@ -25,9 +26,10 @@ export const BudgetList=() => {
 
   return (
     <Container>
-      <div className="columns">
-        <Heading className="column">Budgets</Heading>
-        <div className="column">
+      <Box>
+        <Block className="component-header">
+        <Heading>Budgets</Heading>
+        <div>
           <Button onClick={() => history.push("/budgets/add")}>
               <Icon>
                 <FontAwesomeIcon icon={faPlus} />
@@ -35,8 +37,9 @@ export const BudgetList=() => {
               <span>Add New</span>
           </Button>
         </div>
-      </div>
-      <Box>
+      </Block>
+      <Block className="table-container">
+        <TableScrollbar>
         <Table>
             <thead>
               <tr>
@@ -68,6 +71,8 @@ export const BudgetList=() => {
                 )})}
             </tbody>
         </Table>
+        </TableScrollbar>
+        </Block>
       </Box>
     </Container>
 
