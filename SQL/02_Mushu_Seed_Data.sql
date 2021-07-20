@@ -28,7 +28,7 @@ insert into [Account] ([ID], [AccountName], [AccountTypeId], [UserProfileId])
 VALUES (1, 'BB&T', 1, 1), (2, 'BB&T', 2, 1), (3, 'Visa', 3, 1), (4, 'Robinhood', 6, 1)
 set identity_insert [Account] off
 
-et identity_insert [Transaction] on
+set identity_insert [Transaction] on
 INSERT INTO [Transaction] ([Id], [TransactionDateTime], [Title], [Amount], [CategoryId], [AccountId]) VALUES
     (1,'2017-10-02 00:00:00',N'THE COLD SPOT GLEN JEA GLEN JEAN WV',-31,1,1),
     (2,'2017-10-04 00:00:00',N'INTERNET PAYMENT THANK YOU',1860.03,17,1),
