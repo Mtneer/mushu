@@ -64,7 +64,7 @@ CREATE TABLE [Budget] (
 CREATE TABLE [Transaction] (
   [Id] integer PRIMARY KEY IDENTITY,
   [TransactionDateTime] DATETIME NOT NULL,
-  [Title] NVARCHAR(39) NOT NULL,
+  [Title] VARCHAR(255) NOT NULL,
   [Amount] NUMERIC(6, 2) NOT NULL,
   [CategoryId] integer NOT NULL,
   [AccountId] integer NOT NULL
