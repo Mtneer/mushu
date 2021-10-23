@@ -53,6 +53,7 @@ namespace mushu.Controllers
                 while (m != endMonth || y != endYear)
                 {
                     //summary.Axes.Add($"{y}-{m}");
+                    int catIndex = 0;
                     categories.ForEach(c =>
                     {
                         if (i == 0)
@@ -60,6 +61,7 @@ namespace mushu.Controllers
                             summary.Data.Add(new CategoryData
                             {
                                 Label = c.Name,
+                                CategoryID = c.Id,
                                 Data = new List<DataPoint>()
                             });
                         }
@@ -72,25 +74,26 @@ namespace mushu.Controllers
                             {
                                 if (j == 0)
                                 {
-                                    summary.Data[c.Id-1].Data.Add(new DataPoint
+                                    summary.Data[catIndex].Data.Add(new DataPoint
                                     {
                                         X = $"{m}-{y}",
                                         Y = 0
                                     });
                                 }
 
-                                summary.Data[c.Id-1].Data[i].Y += Math.Abs(t.Amount);
+                                summary.Data[catIndex].Data[i].Y += Math.Abs(t.Amount);
                                 j += 1;
                             });
                         }
                         else
                         {
-                            summary.Data[c.Id-1].Data.Add(new DataPoint
+                            summary.Data[catIndex].Data.Add(new DataPoint
                             {
                                 X = $"{m}-{y}",
                                 Y = 0
                             });
                         }
+                        catIndex += 1;
                     });
                     
                     m += 1;
