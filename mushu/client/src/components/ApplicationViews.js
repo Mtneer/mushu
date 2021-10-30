@@ -18,6 +18,7 @@ import { AccountList } from "./Account/AccountList";
 import { AccountForm } from "./Account/AccountForm";
 import { ConfirmDeleteAccount } from "./Account/ConfirmDeleteAccount";
 import { SpendingSummary } from "./Spending/SpendingSummary";
+import { MarketDashboard } from "./Market/MarketDashboard";
 
 export default function ApplicationViews() {
   // import the isLoggedIn state variable from the UserProfileContext
@@ -32,7 +33,7 @@ export default function ApplicationViews() {
         manage what the user sees based on their login status. If they are logged in,
         display a welcome message. If not, redirect them to the login page*/}
         <Route path="/" exact>
-          {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
+          <MarketDashboard />
         </Route>
 
         {/*-----------------ACCOUNT ROUTES--------------------*/} 
@@ -78,6 +79,12 @@ export default function ApplicationViews() {
           {isLoggedIn ? <SpendingSummary /> : <Redirect to="/login" />}
         </Route>
         
+        
+        {/*-----------------MARKET DASHBOARD ROUTES--------------------*/}
+        {/* <Route exact path="/marketdashboard">
+          {isLoggedIn ? <SpendingSummary /> : <Redirect to="/login" />}
+        </Route> */}
+
        {/*-----------------CATEGORY ROUTES--------------------*/} 
         <Route exact path="/categories">
           {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}

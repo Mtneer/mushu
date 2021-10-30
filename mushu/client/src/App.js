@@ -7,6 +7,7 @@ import { CategoryProvider } from "./providers/CategoryProvider";
 import { BudgetProvider } from "./providers/BudgetProvider";
 import { AccountProvider } from "./providers/AccountProvider";
 import { SpendingProvider } from "./providers/SpendingProvider";
+import { StockDataProvider } from './providers/StockDataProvider';
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import ApplicationViews from "./components/ApplicationViews";
@@ -23,6 +24,7 @@ function App() {
             <BudgetProvider>
               <AccountProvider>
                 <SpendingProvider>
+                  <StockDataProvider>
                   {/* <div style={{ margin: '-1rem' }}>
                     <Hero size="fullheight">
                       <Hero.Header renderAs="header"> */}
@@ -36,6 +38,7 @@ function App() {
                       {/* </Hero.Footer>
                     </Hero>
                   </div> */}
+                  </StockDataProvider>
                 </SpendingProvider>
               </AccountProvider>
             </BudgetProvider>
